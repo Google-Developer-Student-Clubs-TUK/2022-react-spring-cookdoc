@@ -36,9 +36,9 @@ public class MvcConfig extends WebMvcConfigurationSupport {
     @Bean
     public DataSource dataSource() {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:13306/cjapp?serverTimezone=UTC");
-        hikariConfig.setUsername("root");
+         hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:[PORT]/cjapp?serverTimezone=UTC");
+        hikariConfig.setUsername("");
         hikariConfig.setPassword("");
 
         return new HikariDataSource(hikariConfig);
