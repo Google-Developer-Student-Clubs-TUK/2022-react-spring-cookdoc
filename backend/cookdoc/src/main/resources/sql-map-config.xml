@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- IBATIS RESOURCE CONFIGURATION -->
+<configuration>
+
+    <!-- 타입 Alias -->
+    <typeAliases>
+        <typeAlias type="project.cookdoc.model.Payload" alias="Payload" />
+    </typeAliases>
+
+    <mappers>
+        <!--<mapper resource=""/>-->
+    </mappers>
+</configuration>
