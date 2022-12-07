@@ -20,11 +20,11 @@ const Label = styled.label`
 `;
 
 const SelectInput = styled.select`
-	font-weight: 700;
+	font-weight: 500;
 	font-size: 18px;
 	line-height: 18px;
 	letter-spacing: 0.05em;
-	padding: 8px 8px 8px 16px;
+	padding: 8px 16px 8px 16px;
 	border: 1px solid #d6d6d6;
 	border-radius: 16px;
 	appearance: none;
@@ -50,7 +50,12 @@ export function Select({ id, label, placeholder, children }: Props) {
 	return (
 		<Container>
 			<Label htmlFor={id}>{label}</Label>
-			<SelectInput id={id} required placeholder={placeholder}>
+			<SelectInput
+				id={id}
+				required
+				placeholder={placeholder}
+				spellCheck={false}
+			>
 				{children}
 			</SelectInput>
 		</Container>

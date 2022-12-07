@@ -20,11 +20,11 @@ const Label = styled.label`
 `;
 
 const GeneralInput = styled.input`
-	font-weight: 700;
+	font-weight: 500;
 	font-size: 18px;
 	line-height: 18px;
 	letter-spacing: 0.05em;
-	padding: 8px 8px 8px 16px;
+	padding: 8px 16px 8px 16px;
 	border: 1px solid #d6d6d6;
 	border-radius: 16px;
 	outline: none;
@@ -43,7 +43,7 @@ export function Input({ id, label, placeholder }: Props) {
 	return (
 		<Container>
 			<Label htmlFor={id}>{label}</Label>
-			<GeneralInput id={id} placeholder={placeholder} />
+			<GeneralInput id={id} placeholder={placeholder} spellCheck={false} />
 		</Container>
 	);
 }
