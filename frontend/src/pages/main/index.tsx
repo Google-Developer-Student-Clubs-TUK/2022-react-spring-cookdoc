@@ -94,9 +94,41 @@ export function Main() {
 			level: 3,
 		};
 		const map = new window.kakao.maps.Map(container, options);
-		console.log(map);
-	});
-
+		const positions = [
+			{
+				title: '노랑통닭',
+				latlng: new window.kakao.maps.LatLng(37.3455, 126.735324),
+			},
+			{
+				title: '엽기 떡볶이',
+				latlng: new window.kakao.maps.LatLng(37.3629, 126.729764),
+			},
+			{
+				title: 'BHC 치킨',
+				latlng: new window.kakao.maps.LatLng(37.3525, 126.729845),
+			},
+			{
+				title: '던킷도넛츠',
+				latlng: new window.kakao.maps.LatLng(37.3449, 126.738508),
+			},
+			{
+				title: '매차쿠차',
+				latlng: new window.kakao.maps.LatLng(37.3449, 126.738508),
+			},
+		];
+		const markerPosition = new window.kakao.maps.LatLng(37.3399, 126.733946);
+		const mainMarker = new window.kakao.maps.Marker({
+			position: markerPosition,
+		});
+		for (let i = 0; i < positions.length; i++) {
+			const marker = new window.kakao.maps.Marker({
+				map: map,
+				position: positions[i].latlng,
+				title: positions[i].title,
+			});
+		}
+		mainMarker.setMap(map);
+	}, []);
 	return (
 		<StandardLayout>
 			<Fragment>
