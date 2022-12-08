@@ -5,7 +5,7 @@ const Container = styled.div`
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	padding: 8px;
+	padding: 8px 0px 8px 0px;
 	gap: 8px;
 `;
 
@@ -29,7 +29,7 @@ const SelectInput = styled.select`
 	border-radius: 16px;
 	appearance: none;
 	outline: none;
-	background: url('/select-arrow.svg') no-repeat right 9px center;
+	background: #ffffff url('/select-arrow.svg') no-repeat right 9px center;
 	cursor: pointer;
 	option:first-of-type {
 		display: none;
