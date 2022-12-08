@@ -5,3 +5,4 @@ export * from './SelectInput';
 export * from './TextAreaInput';
 export * from './ShopRegisterModal';
 export * from './List';
+export * from './Button';
