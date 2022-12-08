@@ -30,7 +30,7 @@ const ShopAddress = styled.p`
 	float: right;
 	font-size: 0.8em;
 	font-weight: bold;
-	color: #888;
+	color: black;
 `;
 
 const ShopDetail = styled.div`
@@ -59,7 +59,7 @@ export function List() {
 			{dummy.shops.map((v, i) => (
 				<ListItem key={v.phone}>
 					<ShopName>{v.name}</ShopName>
-					<ShopAddress>주소 : {v.address}</ShopAddress>
+					<ShopAddress>📮 {v.address}</ShopAddress>
 					<ShopDetail>{v.explain}</ShopDetail>
 				</ListItem>
 			))}
