@@ -1,18 +1,12 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Main from './Main';
+import { Routes, Route } from 'react-router-dom';
+import { Main } from 'pages';
 
 function App() {
 	return (
-		<>
-			<Router>
-				<Routes>
-					<Route path="/" element={<Main />} />
-				</Routes>
-			</Router>
-		</>
+		<Routes>
+			<Route path="/" element={<Main />} />
+		</Routes>
 	);
 }
 
