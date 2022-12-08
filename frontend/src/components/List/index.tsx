@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-import dummy from './db/data.json';
 import React from 'react';
+import styled from 'styled-components';
 
 const ListItem = styled.div`
 	padding: 15px;
@@ -12,12 +11,10 @@ const ListItem = styled.div`
 	border-radius: 5px;
 `;
 
-function List() {
+export function List() {
 	return (
 		<>
 			<ListItem />
 		</>
 	);
 }
-
-export default List;

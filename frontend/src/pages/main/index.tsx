@@ -1,22 +1,13 @@
-import Header from './Component/Header';
+import React, { Fragment, useEffect } from 'react';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import List from './List';
-import React from 'react';
+import { StandardLayout } from 'layout';
+import { List } from 'components';
 
 declare global {
 	interface Window {
 		kakao: any;
 	}
 }
-
-const Container = styled.div`
-	position: relative;
-	box-sizing: border-box;
-	display: flex;
-	width: 100vw;
-	height: 100vh;
-`;
 
 const ShopList = styled.div`
 	box-sizing: border-box;
@@ -95,7 +86,7 @@ const ListResult = styled.div`
 	padding: 0px;
 `;
 
-function Main() {
+export function Main() {
 	useEffect(() => {
 		const container = document.getElementById('map');
 		const options = {
@@ -107,9 +98,8 @@ function Main() {
 	});
 
 	return (
-		<>
-			<Header />
-			<Container>
+		<StandardLayout>
+			<Fragment>
 				<ShopList>
 					<ShopListHeader>
 						<h2>가게 리스트</h2>
@@ -128,9 +118,7 @@ function Main() {
 					</ShopListBottom>
 				</ShopList>
 				<div id="map" style={{ width: '100%', height: '100%' }} />
-			</Container>
-		</>
+			</Fragment>
+		</StandardLayout>
 	);
 }
-
-export default Main;
