@@ -1,12 +1,17 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
-import { StandardLayout } from 'layout';
-import { ShopRegisterModal } from 'components';
+import './App.css';
+import Main from './Main';
 
 function App() {
 	return (
-		<StandardLayout>
-			<ShopRegisterModal />
-		</StandardLayout>
+		<>
+			<Router>
+				<Routes>
+					<Route path="/" element={<Main />} />
+				</Routes>
+			</Router>
+		</>
 	);
 }
 
