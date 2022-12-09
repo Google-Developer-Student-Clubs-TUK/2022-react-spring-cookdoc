@@ -52,17 +52,40 @@ const ShopDetail = styled.div`
 	padding: 5px;
 `;
 
-export function List() {
-	console.log(dummy);
+interface ListProps {
+	data: string;
+	click: boolean;
+}
+
+export function List({ data, click }: ListProps) {
+	console.log(data);
+	console.log(click);
 	return (
 		<>
-			{dummy.shops.map((v, i) => (
-				<ListItem key={v.phone}>
-					<ShopName>{v.name}</ShopName>
-					<ShopAddress>📮 {v.address}</ShopAddress>
-					<ShopDetail>{v.explain}</ShopDetail>
-				</ListItem>
-			))}
+			{dummy.shops.map((v, i) => {
+				console.log(v.name);
+				if (click === true && v.name === data) {
+					return (
+						<ListItem key={data}>
+							<ShopName>{v.name}</ShopName>
+							<ShopAddress>📮 {v.address}</ShopAddress>
+							<ShopDetail>{v.explain}</ShopDetail>
+						</ListItem>
+					);
+				}
+			})}
+			{dummy.shops.map((v, i) => {
+				console.log(v.name);
+				if (click === false) {
+					return (
+						<ListItem key={i}>
+							<ShopName>{v.name}</ShopName>
+							<ShopAddress>📮 {v.address}</ShopAddress>
+							<ShopDetail>{v.explain}</ShopDetail>
+						</ListItem>
+					);
+				}
+			})}
 		</>
 	);
 }

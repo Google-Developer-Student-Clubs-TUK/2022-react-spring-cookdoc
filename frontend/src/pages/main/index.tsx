@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { StandardLayout } from 'layout';
 import { List } from 'components';
@@ -87,6 +87,19 @@ const ListResult = styled.div`
 `;
 
 export function Main() {
+	const input = useRef<HTMLInputElement>(null);
+	const [value, setValue] = useState('');
+	const [click, setClick] = useState(false);
+
+	console.log(value);
+
+	const handleClick = () => {
+		if (input.current) {
+			setValue(input.current.value);
+		}
+		setClick(true);
+	};
+
 	useEffect(() => {
 		const container = document.getElementById('map');
 		const options = {
@@ -111,10 +124,6 @@ export function Main() {
 				title: '던킷도넛츠',
 				latlng: new window.kakao.maps.LatLng(37.3449, 126.738508),
 			},
-			{
-				title: '매차쿠차',
-				latlng: new window.kakao.maps.LatLng(37.3449, 126.738508),
-			},
 		];
 		const markerPosition = new window.kakao.maps.LatLng(37.3399, 126.733946);
 		const mainMarker = new window.kakao.maps.Marker({
@@ -136,16 +145,20 @@ export function Main() {
 					<ShopListHeader>
 						<h2>가게 리스트</h2>
 						<InputBox>
-							<Input placeholder="검색어를 입력하세요." />
+							<Input
+								ref={input}
+								placeholder="검색어를 입력하세요."
+								defaultValue={value}
+							/>
 						</InputBox>
 						<ButtonBox>
-							<Button>검색</Button>
+							<Button onClick={handleClick}>검색</Button>
 						</ButtonBox>
 					</ShopListHeader>
 
 					<ShopListBottom>
 						<ListResult>
-							<List />
+							<List data={value} click={click} />
 						</ListResult>
 					</ShopListBottom>
 				</ShopList>
