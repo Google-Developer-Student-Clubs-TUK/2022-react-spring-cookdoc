@@ -11,8 +11,8 @@ const Container = styled.div`
 
 const Label = styled.label`
 	font-weight: 700;
-	font-size: 16px;
-	line-height: 16px;
+	font-size: 1rem;
+	line-height: 1rem;
 
 	letter-spacing: 0.05em;
 
@@ -21,8 +21,8 @@ const Label = styled.label`
 
 const GeneralInput = styled.input`
 	font-weight: 500;
-	font-size: 18px;
-	line-height: 18px;
+	font-size: 1rem;
+	line-height: 1rem;
 	letter-spacing: 0.05em;
 	padding: 8px 16px 8px 16px;
 	border: 1px solid #d6d6d6;
