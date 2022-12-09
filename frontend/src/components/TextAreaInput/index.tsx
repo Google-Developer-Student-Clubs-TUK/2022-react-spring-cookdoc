@@ -38,13 +38,21 @@ interface Props {
 	id?: string;
 	label?: string;
 	placeholder?: string;
+	value?: string;
+	onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export function TextArea({ id, label, placeholder }: Props) {
+export function TextArea({ id, label, placeholder, value, onChange }: Props) {
 	return (
 		<Container>
 			<Label htmlFor={id}>{label}</Label>
-			<TextAreaInput id={id} placeholder={placeholder} spellCheck={false} />
+			<TextAreaInput
+				id={id}
+				placeholder={placeholder}
+				spellCheck={false}
+				value={value}
+				onChange={onChange}
+			/>
 		</Container>
 	);
 }

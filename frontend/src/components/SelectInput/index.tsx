@@ -44,9 +44,18 @@ interface Props {
 	label?: string;
 	placeholder?: string;
 	children?: JSX.Element[];
+	value?: string;
+	onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export function Select({ id, label, placeholder, children }: Props) {
+export function Select({
+	id,
+	label,
+	placeholder,
+	children,
+	value,
+	onChange,
+}: Props) {
 	return (
 		<Container>
 			<Label htmlFor={id}>{label}</Label>
@@ -55,6 +64,8 @@ export function Select({ id, label, placeholder, children }: Props) {
 				required
 				placeholder={placeholder}
 				spellCheck={false}
+				value={value}
+				onChange={onChange}
 			>
 				{children}
 			</SelectInput>

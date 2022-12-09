@@ -37,13 +37,21 @@ interface Props {
 	id?: string;
 	label?: string;
 	placeholder?: string;
+	value?: string;
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function Input({ id, label, placeholder }: Props) {
+export function Input({ id, label, placeholder, value, onChange }: Props) {
 	return (
 		<Container>
 			<Label htmlFor={id}>{label}</Label>
-			<GeneralInput id={id} placeholder={placeholder} spellCheck={false} />
+			<GeneralInput
+				id={id}
+				placeholder={placeholder}
+				spellCheck={false}
+				value={value}
+				onChange={onChange}
+			/>
 		</Container>
 	);
 }

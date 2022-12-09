@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
 import { shopRegisterButtonState } from 'atoms';
@@ -47,6 +47,12 @@ const ButtonContainer = styled.div`
 export function ShopRegisterModal() {
 	const setCancelButtonClicked = useSetRecoilState(shopRegisterButtonState);
 
+	const [shopName, setShopName] = useState('');
+	const [address, setAddress] = useState('');
+	const [phoneNumber, setPhoneNumber] = useState('');
+	const [category, setCategory] = useState('');
+	const [info, setInfo] = useState('');
+
 	return (
 		<Container>
 			<SubContainer>
@@ -54,18 +60,36 @@ export function ShopRegisterModal() {
 					id="상점명"
 					label="🏬 상점 명"
 					placeholder="상점 명을 입력해주세요"
+					value={shopName}
+					onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+						setShopName(event.target.value)
+					}
 				/>
 				<Input
 					id="상점주소"
 					label="📮 상점 주소"
 					placeholder="우편 번호 찾기"
+					value={address}
+					onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+						setAddress(event.target.value)
+					}
 				/>
 				<Input
 					id="상점번호"
 					label="☎️ 상점 번호"
 					placeholder="상점 번호를 입력해주세요"
+					value={phoneNumber}
+					onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+						setPhoneNumber(event.target.value)
+					}
 				/>
-				<Select label="🗂 상점 분류">
+				<Select
+					label="🗂 상점 분류"
+					value={category}
+					onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+						setCategory(event.target.value)
+					}
+				>
 					<option value="">상점 분류를 입력해주세요</option>
 					<option>1</option>
 					<option>2</option>
@@ -73,6 +97,10 @@ export function ShopRegisterModal() {
 				<TextArea
 					label="📌 상점 상세 정보"
 					placeholder="상점 상세 정보를 입력해주세요"
+					value={info}
+					onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+						setInfo(event.target.value)
+					}
 				/>
 				<ButtonContainer>
 					<Button onClick={() => setCancelButtonClicked(false)}>
