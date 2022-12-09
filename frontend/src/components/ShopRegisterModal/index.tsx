@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+
 import { useSetRecoilState } from 'recoil';
 import { shopRegisterButtonState } from 'atoms';
+
 import { Input } from 'components/Input';
 import { Select } from 'components/SelectInput';
 import { TextArea } from 'components/TextAreaInput';
 import { Button } from 'components/Button';
+import { apiUrl } from 'common/apiUrl';
 
 const Container = styled.div`
 	display: flex;
@@ -106,7 +110,22 @@ export function ShopRegisterModal() {
 					<Button onClick={() => setCancelButtonClicked(false)}>
 						취소하기
 					</Button>
-					<Button>등록하기</Button>
+					<Button
+						onClick={() => {
+							const form = new FormData();
+							form.append('name', shopName);
+							form.append('address', address);
+							form.append('detail', info);
+							form.append('category', category);
+							form.append('phone', phoneNumber);
+							axios
+								.post(`${apiUrl}/shops`, form)
+								.then((res) => console.log(res.data))
+								.catch((err) => console.log(err));
+						}}
+					>
+						등록하기
+					</Button>
 				</ButtonContainer>
 			</SubContainer>
 		</Container>
