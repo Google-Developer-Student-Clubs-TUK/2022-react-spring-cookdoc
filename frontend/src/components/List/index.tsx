@@ -62,7 +62,7 @@ export function List({ data, click }: ListProps) {
 	console.log(click);
 	return (
 		<>
-			{dummy.shops.map((v, i) => {
+			{dummy.shops.map((v) => {
 				console.log(v.name);
 				if (click === true && v.name === data) {
 					return (
