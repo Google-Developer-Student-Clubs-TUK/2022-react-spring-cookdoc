@@ -32,7 +32,7 @@ const SubContainer = styled.div`
 
 	backdrop-filter: blur(8px);
 
-	background-color: rgba(0, 0, 0, 0.1);
+	background-color: #b0b0b0;
 
 	border-radius: 12px;
 `;
