@@ -57,6 +57,21 @@ export function ShopRegisterModal() {
 	const [category, setCategory] = useState('');
 	const [info, setInfo] = useState('');
 
+	const registShopHandler = () => {
+		const form = new FormData();
+
+		form.append('name', shopName);
+		form.append('address', address);
+		form.append('detail', info);
+		form.append('category', category);
+		form.append('phone', phoneNumber);
+
+		axios
+			.post(`${apiUrl}/shops`, form)
+			.then((res) => console.log(res.data))
+			.catch((err) => console.log(err));
+	};
+
 	return (
 		<Container>
 			<SubContainer>
@@ -110,22 +125,7 @@ export function ShopRegisterModal() {
 					<Button onClick={() => setCancelButtonClicked(false)}>
 						취소하기
 					</Button>
-					<Button
-						onClick={() => {
-							const form = new FormData();
-							form.append('name', shopName);
-							form.append('address', address);
-							form.append('detail', info);
-							form.append('category', category);
-							form.append('phone', phoneNumber);
-							axios
-								.post(`${apiUrl}/shops`, form)
-								.then((res) => console.log(res.data))
-								.catch((err) => console.log(err));
-						}}
-					>
-						등록하기
-					</Button>
+					<Button onClick={registShopHandler}>등록하기</Button>
 				</ButtonContainer>
 			</SubContainer>
 		</Container>
