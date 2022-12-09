@@ -32,6 +32,7 @@ const TextAreaInput = styled.textarea`
 	&::placeholder {
 		color: #ababab;
 	}
+	outline: none;
 `;
 
 interface Props {
