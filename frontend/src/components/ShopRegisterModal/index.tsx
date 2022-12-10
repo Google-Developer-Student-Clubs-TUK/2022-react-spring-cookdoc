@@ -70,8 +70,8 @@ export function ShopRegisterModal() {
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [category, setCategory] = useState('');
 	const [info, setInfo] = useState('');
-	const [imageURL, setImageURL] = useState('');
-	const [imageFile, setImageFile] = useState<File>();
+	const [imageURLList, setImageURLList] = useState<string[]>([]);
+	const [imageFileList, setImageFileList] = useState<File[]>([]);
 
 	const addressPopUp = useDaumPostcodePopup();
 
@@ -100,15 +100,18 @@ export function ShopRegisterModal() {
 
 	const imageUploadHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files !== null) {
-			const reader = new FileReader();
+			for (const file of Array.from(event.target?.files)) {
+				setImageFileList((prev) => [...prev, file]);
 
-			reader.readAsDataURL(event.target.files[0]);
-			setImageFile(event.target.files[0]);
+				const reader = new FileReader();
 
-			reader.onload = (event) => {
-				const url = event.target?.result as string;
-				setImageURL(url);
-			};
+				reader.readAsDataURL(file);
+
+				reader.onload = (event) => {
+					const url = event.target?.result as string;
+					setImageURLList((prev) => [...prev, url]);
+				};
+			}
 		}
 	};
 
@@ -118,7 +121,9 @@ export function ShopRegisterModal() {
 		form.append('name', shopName);
 		form.append('address', `${address} ${addressDetail}`);
 		form.append('detail', info);
-		form.append('image', imageFile || '');
+		for (const file of imageFileList) {
+			form.append('image', file);
+		}
 		form.append('category', category);
 		form.append('phone', phoneNumber);
 
@@ -145,7 +150,7 @@ export function ShopRegisterModal() {
 	return (
 		<Container>
 			<SubContainer>
-				<ImageUpload url={imageURL} onChange={imageUploadHandler} />
+				<ImageUpload urlList={imageURLList} onChange={imageUploadHandler} />
 				<InputContainer>
 					<Input
 						id="상점명"
