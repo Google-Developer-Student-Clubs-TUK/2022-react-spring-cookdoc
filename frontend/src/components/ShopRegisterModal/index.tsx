@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
@@ -128,6 +128,20 @@ export function ShopRegisterModal() {
 			.catch((err) => console.log(err));
 	};
 
+	useEffect(() => {
+		if (phoneNumber.length === 11) {
+			setPhoneNumber(phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+		}
+
+		if (phoneNumber.length === 13) {
+			setPhoneNumber(
+				phoneNumber
+					.replace(/-/g, '')
+					.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+			);
+		}
+	}, [phoneNumber]);
+
 	return (
 		<Container>
 			<SubContainer>
@@ -146,7 +160,7 @@ export function ShopRegisterModal() {
 						id="상점주소"
 						label="📮 상점 주소"
 						placeholder="우편 번호 찾기"
-						readonly
+						readOnly
 						value={address}
 						onClick={() => addressPopUp({ onComplete: addressCompleteHandler })}
 					/>
@@ -163,10 +177,11 @@ export function ShopRegisterModal() {
 						id="상점번호"
 						label="☎️ 상점 번호"
 						placeholder="상점 번호를 입력해주세요"
+						maxLength={11}
 						value={phoneNumber}
-						onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-							setPhoneNumber(event.target.value)
-						}
+						onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+							setPhoneNumber(event.target.value.replace(/[^0-9]/g, ''));
+						}}
 					/>
 					<Select
 						label="🗂 상점 분류"

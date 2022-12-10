@@ -38,7 +38,8 @@ interface Props {
 	label?: string;
 	placeholder?: string;
 	value?: string;
-	readonly?: boolean;
+	readOnly?: boolean;
+	maxLength?: number;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onClick?: () => void;
 }
@@ -48,7 +49,8 @@ export function Input({
 	label,
 	placeholder,
 	value,
-	readonly,
+	readOnly,
+	maxLength,
 	onChange,
 	onClick,
 }: Props) {
@@ -60,7 +62,8 @@ export function Input({
 				placeholder={placeholder}
 				spellCheck={false}
 				autoComplete="off"
-				readOnly={readonly}
+				readOnly={readOnly}
+				maxLength={maxLength}
 				value={value}
 				onChange={onChange}
 				onClick={onClick}
