@@ -38,10 +38,20 @@ interface Props {
 	label?: string;
 	placeholder?: string;
 	value?: string;
+	readonly?: boolean;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onClick?: () => void;
 }
 
-export function Input({ id, label, placeholder, value, onChange }: Props) {
+export function Input({
+	id,
+	label,
+	placeholder,
+	value,
+	readonly,
+	onChange,
+	onClick,
+}: Props) {
 	return (
 		<Container>
 			<Label htmlFor={id}>{label}</Label>
@@ -50,8 +60,10 @@ export function Input({ id, label, placeholder, value, onChange }: Props) {
 				placeholder={placeholder}
 				spellCheck={false}
 				autoComplete="off"
+				readOnly={readonly}
 				value={value}
 				onChange={onChange}
+				onClick={onClick}
 			/>
 		</Container>
 	);

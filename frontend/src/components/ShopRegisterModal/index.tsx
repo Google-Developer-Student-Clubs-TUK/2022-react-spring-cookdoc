@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useDaumPostcodePopup } from 'react-daum-postcode';
 
 import { useSetRecoilState } from 'recoil';
 import { shopRegisterButtonState } from 'atoms';
@@ -65,11 +66,37 @@ export function ShopRegisterModal() {
 
 	const [shopName, setShopName] = useState('');
 	const [address, setAddress] = useState('');
+	const [addressDetail, setAddressDetail] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [category, setCategory] = useState('');
 	const [info, setInfo] = useState('');
 	const [imageURL, setImageURL] = useState('');
 	const [imageFile, setImageFile] = useState<File>();
+
+	const addressPopUp = useDaumPostcodePopup();
+
+	const addressCompleteHandler = (data: {
+		address: string;
+		addressType: string;
+		bname: string;
+		buildingName: string;
+	}) => {
+		let fullAddress = data.address;
+		let extraAddress = '';
+
+		if (data.addressType === 'R') {
+			if (data.bname !== '') {
+				extraAddress += data.bname;
+			}
+			if (data.buildingName !== '') {
+				extraAddress +=
+					extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+			}
+			fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+		}
+
+		setAddress(fullAddress);
+	};
 
 	const imageUploadHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (event.target.files !== null) {
@@ -89,7 +116,7 @@ export function ShopRegisterModal() {
 		const form = new FormData();
 
 		form.append('name', shopName);
-		form.append('address', address);
+		form.append('address', `${address} ${addressDetail}`);
 		form.append('detail', info);
 		form.append('image', imageFile || '');
 		form.append('category', category);
@@ -119,9 +146,17 @@ export function ShopRegisterModal() {
 						id="상점주소"
 						label="📮 상점 주소"
 						placeholder="우편 번호 찾기"
+						readonly
 						value={address}
+						onClick={() => addressPopUp({ onComplete: addressCompleteHandler })}
+					/>
+					<Input
+						id="상점 상세 주소"
+						label="📮 상점 상세 주소"
+						placeholder="상세 주소를 입력해주세요"
+						value={addressDetail}
 						onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-							setAddress(event.target.value)
+							setAddressDetail(event.target.value)
 						}
 					/>
 					<Input
