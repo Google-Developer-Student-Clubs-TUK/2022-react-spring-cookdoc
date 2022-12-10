@@ -10,6 +10,7 @@ import { Select } from 'components/SelectInput';
 import { TextArea } from 'components/TextAreaInput';
 import { Button } from 'components/Button';
 import { apiUrl } from 'common/apiUrl';
+import { ImageUpload } from 'components/ImageUpload';
 
 const Container = styled.div`
 	display: flex;
@@ -59,53 +60,6 @@ const ButtonContainer = styled.div`
 	gap: 32px;
 `;
 
-const ImageUploadContainer = styled.div`
-	border-radius: 16px;
-
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 8px;
-`;
-
-const PreviewImageContainer = styled.div`
-	width: 400px;
-	border-radius: 16px;
-`;
-
-const PreviewImage = styled.img`
-	width: 100%;
-	object-fit: cover;
-	border-radius: 16px;
-`;
-
-const ImageUploadButtonContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	margin-top: auto;
-`;
-
-const ImageUploadButton = styled.label`
-	width: fit-content;
-	height: fit-content;
-	border: 0;
-	border-radius: 12px;
-	color: #ffffff;
-	background-color: #000000;
-	font-size: 1.2rem;
-	line-height: 1.2rem;
-	font-weight: 700;
-	padding: 8px;
-	cursor: pointer;
-	&:hover {
-		background-color: #232323;
-	}
-`;
-
-const ImageUploadInput = styled.input`
-	display: none;
-`;
-
 export function ShopRegisterModal() {
 	const setCancelButtonClicked = useSetRecoilState(shopRegisterButtonState);
 
@@ -150,22 +104,7 @@ export function ShopRegisterModal() {
 	return (
 		<Container>
 			<SubContainer>
-				<ImageUploadContainer>
-					<PreviewImageContainer>
-						<PreviewImage src={imageURL} alt="preview-image" />
-					</PreviewImageContainer>
-					<ImageUploadButtonContainer>
-						<ImageUploadButton htmlFor="imageUploadButton">
-							이미지 업로드
-						</ImageUploadButton>
-						<ImageUploadInput
-							id="imageUploadButton"
-							type="file"
-							accept="image/*"
-							onChange={imageUploadHandler}
-						/>
-					</ImageUploadButtonContainer>
-				</ImageUploadContainer>
+				<ImageUpload url={imageURL} onChange={imageUploadHandler} />
 				<InputContainer>
 					<Input
 						id="상점명"
