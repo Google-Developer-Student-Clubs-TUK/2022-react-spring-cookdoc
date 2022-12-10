@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver #driver
+    url: jdbc:mysql://localhost:3306/cookdoc?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root # username
+    password: root0707 # password
+
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
