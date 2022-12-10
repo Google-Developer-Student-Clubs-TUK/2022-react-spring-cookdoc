@@ -18,9 +18,9 @@ const Container = styled.div`
 
 	position: absolute;
 	top: 0;
-	bottom: 0;
 	left: 0;
 	right: 0;
+	bottom: 0;
 
 	backdrop-filter: blur(16px);
 	z-index: 1000;
@@ -29,14 +29,25 @@ const Container = styled.div`
 const SubContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	gap: 8px;
+
+	height: 80%;
+	overflow: scroll;
+
+	background-color: #ffffff9b;
+
+	padding: 36px;
+
+	border-radius: 16px;
+	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+`;
+
+const InputContainer = styled.div`
+	display: flex;
+	flex-direction: column;
 
 	padding: 8px;
 	gap: 4px;
-
-	backdrop-filter: blur(8px);
-
-	background-color: #b0b0b0;
 
 	border-radius: 12px;
 `;
@@ -48,6 +59,53 @@ const ButtonContainer = styled.div`
 	gap: 32px;
 `;
 
+const ImageUploadContainer = styled.div`
+	border-radius: 16px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+`;
+
+const PreviewImageContainer = styled.div`
+	width: 400px;
+	border-radius: 16px;
+`;
+
+const PreviewImage = styled.img`
+	width: 100%;
+	object-fit: cover;
+	border-radius: 16px;
+`;
+
+const ImageUploadButtonContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin-top: auto;
+`;
+
+const ImageUploadButton = styled.label`
+	width: fit-content;
+	height: fit-content;
+	border: 0;
+	border-radius: 12px;
+	color: #ffffff;
+	background-color: #000000;
+	font-size: 1.2rem;
+	line-height: 1.2rem;
+	font-weight: 700;
+	padding: 8px;
+	cursor: pointer;
+	&:hover {
+		background-color: #232323;
+	}
+`;
+
+const ImageUploadInput = styled.input`
+	display: none;
+`;
+
 export function ShopRegisterModal() {
 	const setCancelButtonClicked = useSetRecoilState(shopRegisterButtonState);
 
@@ -56,6 +114,22 @@ export function ShopRegisterModal() {
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [category, setCategory] = useState('');
 	const [info, setInfo] = useState('');
+	const [imageURL, setImageURL] = useState('');
+	const [imageFile, setImageFile] = useState<File>();
+
+	const imageUploadHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.target.files !== null) {
+			const reader = new FileReader();
+
+			reader.readAsDataURL(event.target.files[0]);
+			setImageFile(event.target.files[0]);
+
+			reader.onload = (event) => {
+				const url = event.target?.result as string;
+				setImageURL(url);
+			};
+		}
+	};
 
 	const registShopHandler = () => {
 		const form = new FormData();
@@ -63,6 +137,7 @@ export function ShopRegisterModal() {
 		form.append('name', shopName);
 		form.append('address', address);
 		form.append('detail', info);
+		form.append('image', imageFile || '');
 		form.append('category', category);
 		form.append('phone', phoneNumber);
 
@@ -75,58 +150,76 @@ export function ShopRegisterModal() {
 	return (
 		<Container>
 			<SubContainer>
-				<Input
-					id="상점명"
-					label="🏬 상점 명"
-					placeholder="상점 명을 입력해주세요"
-					value={shopName}
-					onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-						setShopName(event.target.value)
-					}
-				/>
-				<Input
-					id="상점주소"
-					label="📮 상점 주소"
-					placeholder="우편 번호 찾기"
-					value={address}
-					onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-						setAddress(event.target.value)
-					}
-				/>
-				<Input
-					id="상점번호"
-					label="☎️ 상점 번호"
-					placeholder="상점 번호를 입력해주세요"
-					value={phoneNumber}
-					onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-						setPhoneNumber(event.target.value)
-					}
-				/>
-				<Select
-					label="🗂 상점 분류"
-					value={category}
-					onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-						setCategory(event.target.value)
-					}
-				>
-					<option value="">상점 분류를 입력해주세요</option>
-					<option>1</option>
-					<option>2</option>
-				</Select>
-				<TextArea
-					label="📌 상점 상세 정보"
-					placeholder="상점 상세 정보를 입력해주세요"
-					value={info}
-					onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-						setInfo(event.target.value)
-					}
-				/>
-				<ButtonContainer>
-					<Button onClick={() => setCancelButtonClicked(false)}>
-						취소하기
-					</Button>
-					<Button onClick={registShopHandler}>등록하기</Button>
-				</ButtonContainer>
+				<ImageUploadContainer>
+					<PreviewImageContainer>
+						<PreviewImage src={imageURL} alt="preview-image" />
+					</PreviewImageContainer>
+					<ImageUploadButtonContainer>
+						<ImageUploadButton htmlFor="imageUploadButton">
+							이미지 업로드
+						</ImageUploadButton>
+						<ImageUploadInput
+							id="imageUploadButton"
+							type="file"
+							accept="image/*"
+							onChange={imageUploadHandler}
+						/>
+					</ImageUploadButtonContainer>
+				</ImageUploadContainer>
+				<InputContainer>
+					<Input
+						id="상점명"
+						label="🏬 상점 명"
+						placeholder="상점 명을 입력해주세요"
+						value={shopName}
+						onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+							setShopName(event.target.value)
+						}
+					/>
+					<Input
+						id="상점주소"
+						label="📮 상점 주소"
+						placeholder="우편 번호 찾기"
+						value={address}
+						onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+							setAddress(event.target.value)
+						}
+					/>
+					<Input
+						id="상점번호"
+						label="☎️ 상점 번호"
+						placeholder="상점 번호를 입력해주세요"
+						value={phoneNumber}
+						onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+							setPhoneNumber(event.target.value)
+						}
+					/>
+					<Select
+						label="🗂 상점 분류"
+						value={category}
+						onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+							setCategory(event.target.value)
+						}
+					>
+						<option value="">상점 분류를 입력해주세요</option>
+						<option>1</option>
+						<option>2</option>
+					</Select>
+					<TextArea
+						label="📌 상점 상세 정보"
+						placeholder="상점 상세 정보를 입력해주세요"
+						value={info}
+						onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+							setInfo(event.target.value)
+						}
+					/>
+					<ButtonContainer>
+						<Button onClick={() => setCancelButtonClicked(false)}>
+							취소하기
+						</Button>
+						<Button onClick={registShopHandler}>등록하기</Button>
+					</ButtonContainer>
+				</InputContainer>
 			</SubContainer>
 		</Container>
 	);

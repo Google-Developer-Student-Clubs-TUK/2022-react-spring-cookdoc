@@ -49,6 +49,7 @@ export function Input({ id, label, placeholder, value, onChange }: Props) {
 				id={id}
 				placeholder={placeholder}
 				spellCheck={false}
+				autoComplete="off"
 				value={value}
 				onChange={onChange}
 			/>
