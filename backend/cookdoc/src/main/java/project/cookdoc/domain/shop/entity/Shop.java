@@ -38,7 +38,7 @@ public class Shop {
     @Column
     private String category;
     @Builder
-    public Shop(int user_id, String name, String address, String phone, List<String> images, String detail, String category) {
+    private Shop(int user_id, String name, String address, String phone, List<String> images, String detail, String category) {
         this.user_id = user_id;
         this.name = name;
         this.address = address;
