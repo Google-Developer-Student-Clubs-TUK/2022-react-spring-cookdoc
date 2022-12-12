@@ -35,22 +35,26 @@ const GeneralInput = styled.input`
 
 interface Props {
 	id?: string;
+	type?: string;
 	label?: string;
 	placeholder?: string;
 	value?: string;
 	readOnly?: boolean;
 	maxLength?: number;
+	min?: string;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onClick?: () => void;
 }
 
 export function Input({
 	id,
+	type,
 	label,
 	placeholder,
 	value,
 	readOnly,
 	maxLength,
+	min,
 	onChange,
 	onClick,
 }: Props) {
@@ -59,6 +63,7 @@ export function Input({
 			<Label htmlFor={id}>{label}</Label>
 			<GeneralInput
 				id={id}
+				type={type}
 				placeholder={placeholder}
 				spellCheck={false}
 				autoComplete="off"
@@ -67,6 +72,7 @@ export function Input({
 				value={value}
 				onChange={onChange}
 				onClick={onClick}
+				min={min}
 			/>
 		</Container>
 	);
