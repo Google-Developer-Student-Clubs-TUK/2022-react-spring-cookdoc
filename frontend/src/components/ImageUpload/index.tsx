@@ -145,7 +145,7 @@ export function ImageUpload({ urlList = [], onChange }: Props) {
 	return (
 		<Container>
 			<PreviewImageContainer>
-				<PreviewImage src={imageURL} alt="업로드된 이미지가 없습니다." />
+				<PreviewImage src={imageURL} alt="이미지를 업로드 후 클릭 해주세요" />
 			</PreviewImageContainer>
 			<PagenationContainer>
 				<PagenationButton left onClick={onClickPrevButton}>
