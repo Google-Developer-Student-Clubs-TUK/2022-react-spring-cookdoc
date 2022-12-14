@@ -11,7 +11,6 @@ public class ShopMapper {
                 .address(request.getAddress())
                 .phone(request.getPhone())
                 .detail(request.getDetail())
-                .images(request.getImages())
                 .category(request.getCategory())
                 .build();
     }
