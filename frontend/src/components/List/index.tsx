@@ -58,8 +58,6 @@ interface ListProps {
 }
 
 export function List({ data, click }: ListProps) {
-	console.log(data);
-	console.log(click);
 	return (
 		<>
 			{dummy.shops.map((v) => {

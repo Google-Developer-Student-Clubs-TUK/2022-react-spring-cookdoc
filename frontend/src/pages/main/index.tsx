@@ -91,8 +91,6 @@ export function Main() {
 	const [value, setValue] = useState('');
 	const [click, setClick] = useState(false);
 
-	console.log(value);
-
 	const handleClick = () => {
 		if (input.current) {
 			setValue(input.current.value);
