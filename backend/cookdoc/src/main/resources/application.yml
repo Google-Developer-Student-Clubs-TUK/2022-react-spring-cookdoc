@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver #driver
-    url: jdbc:mysql://localhost:13306/cookdoc?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/cookdoc?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root # username
     password:  # password
 
