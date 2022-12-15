@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { shopRegisterButtonState } from 'atoms';
-import { ShopRegisterModal } from 'components';
+import { shopRegisterButtonState, shopSubscribeButtonState } from 'atoms';
+import { ShopRegisterModal, ShopSubscribeModal } from 'components';
 import styled from 'styled-components';
 
 const Container = styled.header`
@@ -21,6 +21,9 @@ const HeaderTitle = styled.div`
 `;
 
 const NavBar = styled.nav`
+	display: flex;
+	gap: 32px;
+
 	margin-left: auto;
 	font-weight: 800;
 	font-size: 20px;
@@ -28,16 +31,27 @@ const NavBar = styled.nav`
 	letter-spacing: 0.05em;
 	color: #000000;
 	cursor: pointer;
+`;
+
+const ShopRegister = styled.div`
 	&:hover {
 		color: #383838;
 	}
 `;
 
-const ShopRegister = styled.div``;
+const ShopSubscribe = styled.div`
+	&:hover {
+		color: #383838;
+	}
+`;
 
 export function Header() {
 	const [registerButtonClicked, setRegisterButtonClicked] = useRecoilState(
 		shopRegisterButtonState,
+	);
+
+	const [subscribeButtonClicked, setSubscribeButtonClicked] = useRecoilState(
+		shopSubscribeButtonState,
 	);
 
 	return (
@@ -47,8 +61,12 @@ export function Header() {
 				<ShopRegister onClick={() => setRegisterButtonClicked(true)}>
 					음식점 등록하기
 				</ShopRegister>
+				<ShopSubscribe onClick={() => setSubscribeButtonClicked(true)}>
+					구독하기
+				</ShopSubscribe>
 			</NavBar>
 			{registerButtonClicked ? <ShopRegisterModal /> : null}
+			{subscribeButtonClicked ? <ShopSubscribeModal /> : null}
 		</Container>
 	);
 }
