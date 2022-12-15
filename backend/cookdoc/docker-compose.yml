@@ -1,42 +1,35 @@
-version: "3.8"
+version: "3"
 
 services:
-  database:
-    image: mysql:latest
+  mysqldb:
+    image: mysql
     restart: always
     environment:
       MYSQL_DATABASE: cookdoc
-      MYSQL_ROOT_HOST: '%'
       MYSQL_ROOT_PASSWORD: root0707
-      TZ: Asia/Seoul
     ports:
-      - '13306:3306'
+      - 3307:3306
     command:
       - '--character-set-server=utf8mb4'
       - '--collation-server=utf8mb4_unicode_ci'
     volumes:
-      - ./db/data:/var/lib/mysql
-
-
-  database-adminer:
-    container_name: database-adminer
-    image: adminer:latest
-    environment:
-      - ADMINER_DEFAULT_SERVER=database
-      - ADMINER_DESIGN=hydra
-      - ADMINER_PLUGINS=tables-filter tinymce
-    ports:
-      - "18080:18080"
+      - db-data:/var/lib/mysql
+    networks:
+      - cooknet
 
 
   application:
     build: .
     restart: always
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:13306/cookdoc
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root0707
     ports:
-      - '8080:8080'
+      - 8080:8080
     depends_on:
-      - database
+      - mysqldb
+    networks:
+      - cooknet
+
+volumes:
+  db-data:
+
+networks:
+  cooknet:
