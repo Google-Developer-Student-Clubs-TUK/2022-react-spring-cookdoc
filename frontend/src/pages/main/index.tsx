@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { StandardLayout } from 'layout';
 import { List } from 'components';
@@ -87,6 +87,17 @@ const ListResult = styled.div`
 `;
 
 export function Main() {
+	const input = useRef<HTMLInputElement>(null);
+	const [value, setValue] = useState('');
+	const [click, setClick] = useState(false);
+
+	const handleClick = () => {
+		if (input.current) {
+			setValue(input.current.value);
+		}
+		setClick(true);
+	};
+
 	useEffect(() => {
 		const container = document.getElementById('map');
 		const options = {
@@ -94,9 +105,37 @@ export function Main() {
 			level: 3,
 		};
 		const map = new window.kakao.maps.Map(container, options);
-		console.log(map);
-	});
-
+		const positions = [
+			{
+				title: '노랑통닭',
+				latlng: new window.kakao.maps.LatLng(37.3455, 126.735324),
+			},
+			{
+				title: '엽기 떡볶이',
+				latlng: new window.kakao.maps.LatLng(37.3629, 126.729764),
+			},
+			{
+				title: 'BHC 치킨',
+				latlng: new window.kakao.maps.LatLng(37.3525, 126.729845),
+			},
+			{
+				title: '던킷도넛츠',
+				latlng: new window.kakao.maps.LatLng(37.3449, 126.738508),
+			},
+		];
+		const markerPosition = new window.kakao.maps.LatLng(37.3399, 126.733946);
+		const mainMarker = new window.kakao.maps.Marker({
+			position: markerPosition,
+		});
+		for (let i = 0; i < positions.length; i++) {
+			const marker = new window.kakao.maps.Marker({
+				map: map,
+				position: positions[i].latlng,
+				title: positions[i].title,
+			});
+		}
+		mainMarker.setMap(map);
+	}, []);
 	return (
 		<StandardLayout>
 			<Fragment>
@@ -104,16 +143,20 @@ export function Main() {
 					<ShopListHeader>
 						<h2>가게 리스트</h2>
 						<InputBox>
-							<Input placeholder="검색어를 입력하세요." />
+							<Input
+								ref={input}
+								placeholder="검색어를 입력하세요."
+								defaultValue={value}
+							/>
 						</InputBox>
 						<ButtonBox>
-							<Button>검색</Button>
+							<Button onClick={handleClick}>검색</Button>
 						</ButtonBox>
 					</ShopListHeader>
 
 					<ShopListBottom>
 						<ListResult>
-							<List />
+							<List data={value} click={click} />
 						</ListResult>
 					</ShopListBottom>
 				</ShopList>
