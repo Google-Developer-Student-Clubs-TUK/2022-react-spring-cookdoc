@@ -11,8 +11,8 @@ const Container = styled.div`
 
 const Label = styled.label`
 	font-weight: 700;
-	font-size: 16px;
-	line-height: 16px;
+	font-size: 1rem;
+	line-height: 1rem;
 
 	letter-spacing: 0.05em;
 
@@ -21,8 +21,8 @@ const Label = styled.label`
 
 const TextAreaInput = styled.textarea`
 	font-weight: 500;
-	font-size: 18px;
-	line-height: 24px;
+	font-size: 1rem;
+	line-height: 1.2rem;
 	letter-spacing: 0.05em;
 	resize: none;
 	border: 1px solid #d6d6d6;
@@ -32,19 +32,28 @@ const TextAreaInput = styled.textarea`
 	&::placeholder {
 		color: #ababab;
 	}
+	outline: none;
 `;
 
 interface Props {
 	id?: string;
 	label?: string;
 	placeholder?: string;
+	value?: string;
+	onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export function TextArea({ id, label, placeholder }: Props) {
+export function TextArea({ id, label, placeholder, value, onChange }: Props) {
 	return (
 		<Container>
 			<Label htmlFor={id}>{label}</Label>
-			<TextAreaInput id={id} placeholder={placeholder} spellCheck={false} />
+			<TextAreaInput
+				id={id}
+				placeholder={placeholder}
+				spellCheck={false}
+				value={value}
+				onChange={onChange}
+			/>
 		</Container>
 	);
 }

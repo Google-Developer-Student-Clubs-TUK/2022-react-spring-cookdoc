@@ -6,3 +6,4 @@ export * from './TextAreaInput';
 export * from './ShopRegisterModal';
 export * from './List';
 export * from './Button';
+export * from './ImageUpload';
