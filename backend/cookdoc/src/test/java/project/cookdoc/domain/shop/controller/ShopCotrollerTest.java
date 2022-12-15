@@ -1,5 +1,6 @@
-package project.cookdoc.domain.shop.service;
+package project.cookdoc.domain.shop.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -9,27 +10,26 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import project.cookdoc.domain.shop.dto.ShopRegistrationRequest;
-import project.cookdoc.domain.shop.entity.Shop;
-import project.cookdoc.domain.shop.mapper.ShopMapper;
-import project.cookdoc.domain.shop.repository.ShopRepository;
+import project.cookdoc.domain.shop.service.ShopService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@WebMvcTest(ShopService.class)
+@WebMvcTest(ShopController.class)
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc(addFilters = false)
 @AutoConfigureRestDocs
 @DisplayName("음식점 API")
-class ShopServiceTest {
+class ShopControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private ShopRepository shopRepository;
+    private ShopService shopService;
 
     @Nested
     class registShopTest {
@@ -40,4 +40,3 @@ class ShopServiceTest {
         }
     }
 }
-
