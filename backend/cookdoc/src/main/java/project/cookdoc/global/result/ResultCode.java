@@ -9,8 +9,8 @@ import lombok.Getter;
 public enum ResultCode {
 
     // 도메인 별로 나눠서 관리
-    // Member
-    SHOP_REGISTRATION_SUCCESS("S001", "음식점 등록 성공"),
+    // Shop
+    SHOP_REGISTRATION_SUCCESS("S001", "음식점 등록 완료"),
     ;
 
     private final String code;

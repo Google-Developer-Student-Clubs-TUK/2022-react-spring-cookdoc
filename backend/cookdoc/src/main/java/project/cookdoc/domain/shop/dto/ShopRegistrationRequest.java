@@ -1,24 +1,19 @@
 package project.cookdoc.domain.shop.dto;
 
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@NoArgsConstructor
 public class ShopRegistrationRequest {
-    private int user_id;
+    private Long user_id;
     private String name;
     private String address;
     private String phone;
-    private List<String> images;
     private String detail;
     private String category;
 }
