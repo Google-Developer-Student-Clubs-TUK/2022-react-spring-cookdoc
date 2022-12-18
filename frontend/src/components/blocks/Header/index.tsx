@@ -1,7 +1,4 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
-import { shopRegisterButtonState, shopSubscribeButtonState } from 'stores';
-import { ShopRegisterModal, ShopSubscribeModal } from 'components';
 import styled from 'styled-components';
 
 const Container = styled.header`
@@ -33,40 +30,11 @@ const NavBar = styled.nav`
 	cursor: pointer;
 `;
 
-const ShopRegister = styled.div`
-	&:hover {
-		color: #383838;
-	}
-`;
-
-const ShopSubscribe = styled.div`
-	&:hover {
-		color: #383838;
-	}
-`;
-
 export function Header() {
-	const [registerButtonClicked, setRegisterButtonClicked] = useRecoilState(
-		shopRegisterButtonState,
-	);
-
-	const [subscribeButtonClicked, setSubscribeButtonClicked] = useRecoilState(
-		shopSubscribeButtonState,
-	);
-
 	return (
 		<Container>
 			<HeaderTitle>CookDoc</HeaderTitle>
-			<NavBar>
-				<ShopRegister onClick={() => setRegisterButtonClicked(true)}>
-					음식점 등록하기
-				</ShopRegister>
-				<ShopSubscribe onClick={() => setSubscribeButtonClicked(true)}>
-					구독하기
-				</ShopSubscribe>
-			</NavBar>
-			{registerButtonClicked ? <ShopRegisterModal /> : null}
-			{subscribeButtonClicked ? <ShopSubscribeModal /> : null}
+			<NavBar></NavBar>
 		</Container>
 	);
 }
