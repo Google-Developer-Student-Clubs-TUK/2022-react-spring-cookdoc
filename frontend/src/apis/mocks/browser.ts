@@ -1,5 +1,5 @@
 import { setupWorker } from 'msw';
-import { shopRegistHandlers, shopSubscribeHandlers } from 'api/mocks';
+import { shopRegistHandlers, shopSubscribeHandlers } from 'apis/mocks';
 
 export const worker = setupWorker(
 	...shopRegistHandlers,

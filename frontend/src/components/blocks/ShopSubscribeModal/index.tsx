@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import { useSetRecoilState } from 'recoil';
-import { shopSubscribeButtonState } from 'atoms';
+import { shopSubscribeButtonState } from 'stores';
 
-import { Input } from 'components/Input';
-import { Button } from 'components/Button';
+import { Input } from 'components/atoms/Input';
+import { Button } from 'components/atoms/Button';
 import { apiUrl } from 'common/apiUrl';
 
 const Container = styled.div`

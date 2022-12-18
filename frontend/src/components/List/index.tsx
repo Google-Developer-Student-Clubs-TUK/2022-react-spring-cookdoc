@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import dummy from 'db/data.json';
-import { ShopRegisterModal } from 'components/ShopRegisterModal';
+import { ShopRegisterModal } from 'components/blocks/ShopRegisterModal';
 
 const ListItem = styled.div`
 	padding: 15px;

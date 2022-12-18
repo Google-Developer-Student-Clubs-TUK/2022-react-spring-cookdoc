@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import { shopRegisterButtonState, shopSubscribeButtonState } from 'atoms';
+import { shopRegisterButtonState, shopSubscribeButtonState } from 'stores';
 import { ShopRegisterModal, ShopSubscribeModal } from 'components';
 import styled from 'styled-components';
 

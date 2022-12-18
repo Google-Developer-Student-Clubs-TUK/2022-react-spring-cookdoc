@@ -4,14 +4,14 @@ import axios from 'axios';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 
 import { useSetRecoilState } from 'recoil';
-import { shopRegisterButtonState } from 'atoms';
+import { shopRegisterButtonState } from 'stores';
 
-import { Input } from 'components/Input';
-import { Select } from 'components/SelectInput';
-import { TextArea } from 'components/TextAreaInput';
-import { Button } from 'components/Button';
+import { Input } from 'components/atoms/Input';
+import { Select } from 'components/atoms/SelectInput';
+import { TextArea } from 'components/atoms/TextAreaInput';
+import { Button } from 'components/atoms/Button';
 import { apiUrl } from 'common/apiUrl';
-import { ImageUpload } from 'components/ImageUpload';
+import { ImageUpload } from 'components/blocks/ImageUpload';
 
 const Container = styled.div`
 	display: flex;
