@@ -7,4 +7,4 @@ export * from './List';
 export * from './atoms/Button';
 export * from './blocks/ImageUpload';
 export * from './blocks/ShopRegisterModal';
-export * from './ShopSubscribeModal';
+export * from './blocks/ShopSubscribeModal';
