@@ -60,16 +60,12 @@ const ShopListTitle = styled.span`
 	}
 `;
 
-const ShopButtonsContainer = styled.div`
+const ShopButtonContainer = styled.div`
 	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 8px;
 `;
 
 const ShopRegisterButton = styled.button`
-	width: 70%;
+	width: 100%;
 	font-size: 1rem;
 	font-weight: 600;
 	background: #0475f4;
@@ -217,18 +213,13 @@ export function Main() {
 							<ShopListTitleContainer>
 								<ShopListTitle>가게 리스트</ShopListTitle>
 							</ShopListTitleContainer>
-							<ShopButtonsContainer>
+							<ShopButtonContainer>
 								<ShopRegisterButton
 									onClick={() => setRegisterModalButtonClicked(true)}
 								>
 									음식점 등록하기
 								</ShopRegisterButton>
-								<ShopSubscribeButton
-									onClick={() => setSubscribeModalButtonClicked(true)}
-								>
-									구독하기
-								</ShopSubscribeButton>
-							</ShopButtonsContainer>
+							</ShopButtonContainer>
 							<SearchContainer>
 								<SearchInput
 									ref={input}
