@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 
 import { useSetRecoilState } from 'recoil';
-import { shopRegisterButtonState } from 'stores';
+import { shopRegisterButtonState, shopsState } from 'stores';
 
 import { Input } from 'components/atoms/Input';
 import { Select } from 'components/atoms/SelectInput';
@@ -63,6 +63,7 @@ const ButtonContainer = styled.div`
 
 export function ShopRegisterModal() {
 	const setCancelButtonClicked = useSetRecoilState(shopRegisterButtonState);
+	const setShops = useSetRecoilState(shopsState);
 
 	const [shopName, setShopName] = useState('');
 	const [address, setAddress] = useState('');
@@ -120,7 +121,7 @@ export function ShopRegisterModal() {
 
 		form.append('name', shopName);
 		form.append('address', `${address} ${addressDetail}`);
-		form.append('detail', info);
+		form.append('explain', info);
 		for (const file of imageFileList) {
 			form.append('image', file);
 		}
@@ -129,7 +130,19 @@ export function ShopRegisterModal() {
 
 		axios
 			.post(`${apiUrl}/shops`, form)
-			.then((res) => console.log(res.data))
+			.then((res) =>
+				setShops((state) => [
+					...state,
+					{
+						name: res.data.name,
+						address: res.data.address,
+						explain: res.data.explain,
+						images: res.data.images,
+						category: res.data.category,
+						phone: res.data.phone,
+					},
+				]),
+			)
 			.catch((err) => console.log(err));
 	};
 
