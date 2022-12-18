@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import dummy from 'db/data.json';
-import { ShopRegisterModal } from 'components/blocks/ShopRegisterModal';
+import { useRecoilState } from 'recoil';
+import { shopsState } from 'stores';
 
 const ListItem = styled.div`
 	padding: 15px;
@@ -58,10 +58,10 @@ interface ListProps {
 }
 
 export function List({ data, click }: ListProps) {
+	const [shops] = useRecoilState(shopsState);
 	return (
 		<>
-			{dummy.shops.map((v) => {
-				console.log(v.name);
+			{shops.map((v) => {
 				if (click === true && v.name === data) {
 					return (
 						<ListItem key={data}>
@@ -72,8 +72,7 @@ export function List({ data, click }: ListProps) {
 					);
 				}
 			})}
-			{dummy.shops.map((v, i) => {
-				console.log(v.name);
+			{shops.map((v, i) => {
 				if (click === false) {
 					return (
 						<ListItem key={i}>
