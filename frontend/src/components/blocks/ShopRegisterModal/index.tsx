@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 
 import { useSetRecoilState } from 'recoil';
-import { shopRegisterButtonState, shopsState } from 'stores';
+import { shopRegisterModalButtonState, shopsState } from 'stores';
 
 import { Input } from 'components/atoms/Input';
 import { Select } from 'components/atoms/SelectInput';
@@ -62,7 +62,7 @@ const ButtonContainer = styled.div`
 `;
 
 export function ShopRegisterModal() {
-	const setCancelButtonClicked = useSetRecoilState(shopRegisterButtonState);
+	const setModalButtonClicked = useSetRecoilState(shopRegisterModalButtonState);
 	const setShops = useSetRecoilState(shopsState);
 
 	const [shopName, setShopName] = useState('');
@@ -144,6 +144,8 @@ export function ShopRegisterModal() {
 				]),
 			)
 			.catch((err) => console.log(err));
+
+		setModalButtonClicked(false);
 	};
 
 	useEffect(() => {
@@ -221,7 +223,7 @@ export function ShopRegisterModal() {
 						}
 					/>
 					<ButtonContainer>
-						<Button onClick={() => setCancelButtonClicked(false)}>
+						<Button onClick={() => setModalButtonClicked(false)}>
 							취소하기
 						</Button>
 						<Button onClick={registShopHandler}>등록하기</Button>

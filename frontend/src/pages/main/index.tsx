@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import { StandardLayout } from 'layout';
 import { List } from 'components';
 
-import { shopRegisterButtonState, shopSubscribeButtonState } from 'stores';
+import {
+	shopRegisterModalButtonState,
+	shopSubscribeModalButtonState,
+} from 'stores';
 import { ShopRegisterModal, ShopSubscribeModal } from 'components';
 
 declare global {
@@ -153,13 +156,11 @@ export function Main() {
 	const [value, setValue] = useState('');
 	const [click, setClick] = useState(false);
 
-	const [registerButtonClicked, setRegisterButtonClicked] = useRecoilState(
-		shopRegisterButtonState,
-	);
+	const [registerModalButtonClicked, setRegisterModalButtonClicked] =
+		useRecoilState(shopRegisterModalButtonState);
 
-	const [subscribeButtonClicked, setSubscribeButtonClicked] = useRecoilState(
-		shopSubscribeButtonState,
-	);
+	const [subscribeModalButtonClicked, setSubscribeModalButtonClicked] =
+		useRecoilState(shopSubscribeModalButtonState);
 
 	const handleClick = () => {
 		if (input.current) {
@@ -218,12 +219,12 @@ export function Main() {
 							</ShopListTitleContainer>
 							<ShopButtonsContainer>
 								<ShopRegisterButton
-									onClick={() => setRegisterButtonClicked(true)}
+									onClick={() => setRegisterModalButtonClicked(true)}
 								>
 									음식점 등록하기
 								</ShopRegisterButton>
 								<ShopSubscribeButton
-									onClick={() => setSubscribeButtonClicked(true)}
+									onClick={() => setSubscribeModalButtonClicked(true)}
 								>
 									구독하기
 								</ShopSubscribeButton>
@@ -249,8 +250,8 @@ export function Main() {
 						<Map id="map" />
 					</MapContainer>
 
-					{registerButtonClicked ? <ShopRegisterModal /> : null}
-					{subscribeButtonClicked ? <ShopSubscribeModal /> : null}
+					{registerModalButtonClicked ? <ShopRegisterModal /> : null}
+					{subscribeModalButtonClicked ? <ShopSubscribeModal /> : null}
 				</Container>
 			</Fragment>
 		</StandardLayout>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import { useSetRecoilState } from 'recoil';
-import { shopSubscribeButtonState } from 'stores';
+import { shopSubscribeModalButtonState } from 'stores';
 
 import { Input } from 'components/atoms/Input';
 import { Button } from 'components/atoms/Button';
@@ -59,7 +59,9 @@ const ButtonContainer = styled.div`
 `;
 
 export function ShopSubscribeModal() {
-	const setCancelButtonClicked = useSetRecoilState(shopSubscribeButtonState);
+	const setSubscribeModalButtonClicked = useSetRecoilState(
+		shopSubscribeModalButtonState,
+	);
 
 	const [totalPayment, setTotalPayment] = useState('');
 	const [currentDate, setCurrentDate] = useState('');
@@ -87,6 +89,8 @@ export function ShopSubscribeModal() {
 			.post(`${apiUrl}/shops`, form)
 			.then((res) => console.log(res.data))
 			.catch((err) => console.log(err));
+
+		setSubscribeModalButtonClicked(false);
 	};
 
 	return (
@@ -125,7 +129,7 @@ export function ShopSubscribeModal() {
 						}
 					/>
 					<ButtonContainer>
-						<Button onClick={() => setCancelButtonClicked(false)}>
+						<Button onClick={() => setSubscribeModalButtonClicked(false)}>
 							취소하기
 						</Button>
 						<Button onClick={registShopHandler}>구독하기</Button>

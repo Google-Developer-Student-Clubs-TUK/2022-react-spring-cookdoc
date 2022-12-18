@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const shopRegisterButtonState = atom({
-	key: 'shopRegisterButtonState',
+export const shopRegisterModalButtonState = atom({
+	key: 'shopRegisterModalButtonState',
 	default: false,
 });

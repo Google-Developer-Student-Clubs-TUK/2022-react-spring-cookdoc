@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const shopSubscribeButtonState = atom({
-	key: 'shopSubscribeButtonState',
+export const shopSubscribeModalButtonState = atom({
+	key: 'shopSubscribeModalButtonState',
 	default: false,
 });
