@@ -54,36 +54,40 @@ const ShopDetail = styled.div`
 	padding: 5px;
 `;
 
+const ListContainer = styled.div`
+	margin: 0px;
+	padding: 0px;
+`;
+
 interface ListProps {
 	data: string;
 	click: boolean;
 }
 
 export function List({ data, click }: ListProps) {
+	const shop = dummy.shops.find((v) => v.name === data);
+	if (!shop) {
+		return (
+			<ListContainer>
+				{dummy.shops.map((v, i) => (
+					<ListItem key={i}>
+						<ShopName>{v.name}</ShopName>
+						<ShopAddress>📮 {v.address}</ShopAddress>
+						<ShopDetail>{v.explain}</ShopDetail>
+					</ListItem>
+				))}
+			</ListContainer>
+		);
+	}
 	return (
-		<>
-			{dummy.shops.map((v) => {
-				if (click && v.name === data) {
-					return (
-						<ListItem key={data}>
-							<ShopName>{v.name}</ShopName>
-							<ShopAddress>📮 {v.address}</ShopAddress>
-							<ShopDetail>{v.explain}</ShopDetail>
-						</ListItem>
-					);
-				}
-			})}
-			{dummy.shops.map((v, i) => {
-				if (!click) {
-					return (
-						<ListItem key={i}>
-							<ShopName>{v.name}</ShopName>
-							<ShopAddress>📮 {v.address}</ShopAddress>
-							<ShopDetail>{v.explain}</ShopDetail>
-						</ListItem>
-					);
-				}
-			})}
-		</>
+		<ListContainer>
+			{click && (
+				<ListItem key={data}>
+					<ShopName>{shop.name}</ShopName>
+					<ShopAddress>📮 {shop.address}</ShopAddress>
+					<ShopDetail>{shop.explain}</ShopDetail>
+				</ListItem>
+			)}
+		</ListContainer>
 	);
 }

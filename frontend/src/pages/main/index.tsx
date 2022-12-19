@@ -84,10 +84,6 @@ const Button = styled.button`
 	cursor: pointer;
 `;
 
-const ListResult = styled.div`
-	margin: 0px;
-	padding: 0px;
-`;
 
 export function Main() {
 	const input = useRef<HTMLInputElement>(null);
@@ -159,12 +155,11 @@ export function Main() {
 					</ShopListHeader>
 
 					<ShopListBottom>
-						<ListResult>
 							<List data={value} click={click} />
-						</ListResult>
 					</ShopListBottom>
 				</ShopList>
-				<Detail />{/* detail부분 아직 막혀서 더해야함*/}
+				<Detail />
+				{/* detail부분 아직 막혀서 더해야함*/}
 				<div id="map" style={{ width: '100%', height: '100%' }} />
 			</Fragment>
 		</StandardLayout>
