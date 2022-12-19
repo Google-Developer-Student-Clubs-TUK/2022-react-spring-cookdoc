@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import dummy from 'db/data.json';
 import { ShopRegisterModal } from 'components/ShopRegisterModal';
+import { Detail } from 'components/Detail';
+import { useNavigate } from 'react-router-dom';
 
 const ListItem = styled.div`
 	padding: 15px;
@@ -61,8 +63,7 @@ export function List({ data, click }: ListProps) {
 	return (
 		<>
 			{dummy.shops.map((v) => {
-				console.log(v.name);
-				if (click === true && v.name === data) {
+				if (click && v.name === data) {
 					return (
 						<ListItem key={data}>
 							<ShopName>{v.name}</ShopName>
@@ -73,8 +74,7 @@ export function List({ data, click }: ListProps) {
 				}
 			})}
 			{dummy.shops.map((v, i) => {
-				console.log(v.name);
-				if (click === false) {
+				if (!click) {
 					return (
 						<ListItem key={i}>
 							<ShopName>{v.name}</ShopName>

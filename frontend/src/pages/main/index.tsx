@@ -1,7 +1,9 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { StandardLayout } from 'layout';
-import { List } from 'components';
+import { Detail, List } from 'components';
+import { useSetRecoilState } from 'recoil';
+import { shopDetailState } from 'atoms/shopDetailList';
 
 declare global {
 	interface Window {
@@ -13,6 +15,7 @@ const ShopList = styled.div`
 	box-sizing: border-box;
 	width: 399px;
 	height: 100%;
+	z-index: 30;
 `;
 
 const ShopListHeader = styled.div`
@@ -90,6 +93,7 @@ export function Main() {
 	const input = useRef<HTMLInputElement>(null);
 	const [value, setValue] = useState('');
 	const [click, setClick] = useState(false);
+	const setListClick = useSetRecoilState(shopDetailState);
 
 	const handleClick = () => {
 		if (input.current) {
@@ -160,6 +164,7 @@ export function Main() {
 						</ListResult>
 					</ShopListBottom>
 				</ShopList>
+				<Detail />{/* detail부분 아직 막혀서 더해야함*/}
 				<div id="map" style={{ width: '100%', height: '100%' }} />
 			</Fragment>
 		</StandardLayout>

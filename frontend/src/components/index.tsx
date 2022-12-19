@@ -8,3 +8,4 @@ export * from './Button';
 export * from './ImageUpload';
 export * from './ShopRegisterModal';
 export * from './ShopSubscribeModal';
+export * from './Detail';
