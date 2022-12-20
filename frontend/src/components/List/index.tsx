@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import dummy from 'db/data.json';
 import { ShopRegisterModal } from 'components/ShopRegisterModal';
 import { Detail } from 'components/Detail';
-import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { shopDetailClickState } from 'atoms/shopDetailList';
 
 const ListItem = styled.div`
 	padding: 15px;
@@ -65,24 +66,32 @@ interface ListProps {
 }
 
 export function List({ data, click }: ListProps) {
+	const setListClick = useSetRecoilState(shopDetailClickState);
+
+	const ListItemClick = () => {
+		setListClick(true);
+	};
+
 	const shop = dummy.shops.find((v) => v.name === data);
 	if (!shop) {
 		return (
-			<ListContainer>
-				{dummy.shops.map((v, i) => (
-					<ListItem key={i}>
-						<ShopName>{v.name}</ShopName>
-						<ShopAddress>📮 {v.address}</ShopAddress>
-						<ShopDetail>{v.explain}</ShopDetail>
-					</ListItem>
-				))}
-			</ListContainer>
+			<>
+				<ListContainer>
+					{dummy.shops.map((v, i) => (
+						<ListItem key={i} onClick={ListItemClick}>
+							<ShopName>{v.name}</ShopName>
+							<ShopAddress>📮 {v.address}</ShopAddress>
+							<ShopDetail>{v.explain}</ShopDetail>
+						</ListItem>
+					))}
+				</ListContainer>
+			</>
 		);
 	}
 	return (
 		<ListContainer>
 			{click && (
-				<ListItem key={data}>
+				<ListItem key={data} onClick={ListItemClick}>
 					<ShopName>{shop.name}</ShopName>
 					<ShopAddress>📮 {shop.address}</ShopAddress>
 					<ShopDetail>{shop.explain}</ShopDetail>

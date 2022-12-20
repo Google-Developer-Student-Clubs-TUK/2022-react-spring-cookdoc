@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { StandardLayout } from 'layout';
-import { Detail, List } from 'components';
-import { useSetRecoilState } from 'recoil';
-import { shopDetailState } from 'atoms/shopDetailList';
+import { List } from 'components';
+import { useRecoilValue } from 'recoil';
+import { shopDetailClickState } from 'atoms/shopDetailList';
+import { Detail } from 'components/Detail';
 
 declare global {
 	interface Window {
@@ -84,12 +85,12 @@ const Button = styled.button`
 	cursor: pointer;
 `;
 
-
 export function Main() {
 	const input = useRef<HTMLInputElement>(null);
 	const [value, setValue] = useState('');
 	const [click, setClick] = useState(false);
-	const setListClick = useSetRecoilState(shopDetailState);
+	const listClick = useRecoilValue(shopDetailClickState);
+	console.log(listClick);
 
 	const handleClick = () => {
 		if (input.current) {
@@ -155,10 +156,10 @@ export function Main() {
 					</ShopListHeader>
 
 					<ShopListBottom>
-							<List data={value} click={click} />
+						<List data={value} click={click} />
 					</ShopListBottom>
 				</ShopList>
-				<Detail />
+				{listClick && <Detail />}
 				{/* detail부분 아직 막혀서 더해야함*/}
 				<div id="map" style={{ width: '100%', height: '100%' }} />
 			</Fragment>

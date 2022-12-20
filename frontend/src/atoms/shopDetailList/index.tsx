@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const shopDetailState = atom({
+export const shopDetailClickState = atom({
 	key: 'shopDetailState',
 	default: false,
 });
