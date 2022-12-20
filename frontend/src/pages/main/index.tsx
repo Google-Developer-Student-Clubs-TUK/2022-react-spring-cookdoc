@@ -1,14 +1,11 @@
-import React, { Fragment, useEffect, useState, useRef } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { StandardLayout } from 'layout';
 import { List } from 'components';
 
-import {
-	shopRegisterModalButtonState,
-	shopSubscribeModalButtonState,
-} from 'stores';
-import { ShopRegisterModal, ShopSubscribeModal } from 'components';
+import { shopRegisterModalButtonState } from 'stores';
+import { ShopRegisterModal } from 'components';
 
 declare global {
 	interface Window {
@@ -80,52 +77,18 @@ const ShopRegisterButton = styled.button`
 	transition: ease-in-out 0.2s;
 `;
 
-const ShopSubscribeButton = styled.button`
-	width: 30%;
-	font-size: 1rem;
-	font-weight: 600;
-	background: #24b22d;
-	color: #fff;
-	border: 0;
-	padding: 12px;
-	border-radius: 5px;
-	cursor: pointer;
-	&:hover {
-		background: #1a7e20;
-	}
-	transition: ease-in-out 0.2s;
-`;
-
 const SearchContainer = styled.div`
 	width: 100%;
 	display: flex;
 `;
 
 const SearchInput = styled.input`
-	width: 80%;
+	width: 100%;
 	padding: 8px;
 	border: 1px solid #cacaca;
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
-	border-right: 0;
+	border-radius: 8px;
 	color: #333;
 	outline: none;
-`;
-
-const SearchButton = styled.button`
-	width: 20%;
-	padding: 8px;
-	background: #3a3a3a;
-	color: #fff;
-	border: 1px solid #3a3a3a;
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
-	border-left: 0;
-	cursor: pointer;
-	transition: ease-in-out 0.2s;
-	&:hover {
-		background: #242424;
-	}
 `;
 
 const ShopListBodyContainer = styled.div`
@@ -148,22 +111,10 @@ const Map = styled.div`
 `;
 
 export function Main() {
-	const input = useRef<HTMLInputElement>(null);
 	const [value, setValue] = useState('');
-	const [click, setClick] = useState(false);
 
 	const [registerModalButtonClicked, setRegisterModalButtonClicked] =
 		useRecoilState(shopRegisterModalButtonState);
-
-	const [subscribeModalButtonClicked, setSubscribeModalButtonClicked] =
-		useRecoilState(shopSubscribeModalButtonState);
-
-	const handleClick = () => {
-		if (input.current) {
-			setValue(input.current.value);
-		}
-		setClick(true);
-	};
 
 	useEffect(() => {
 		const container = document.getElementById('map');
@@ -222,17 +173,16 @@ export function Main() {
 							</ShopButtonContainer>
 							<SearchContainer>
 								<SearchInput
-									ref={input}
 									placeholder="검색어를 입력하세요."
-									defaultValue={value}
+									value={value}
+									onChange={(event) => setValue(event.target.value)}
 								/>
-								<SearchButton onClick={handleClick}>검색</SearchButton>
 							</SearchContainer>
 						</ShopListHeaderContainer>
 
 						<ShopListBodyContainer>
 							<ShopList>
-								<List data={value} click={click} />
+								<List data={value} />
 							</ShopList>
 						</ShopListBodyContainer>
 					</ShopListContainer>
@@ -242,7 +192,6 @@ export function Main() {
 					</MapContainer>
 
 					{registerModalButtonClicked ? <ShopRegisterModal /> : null}
-					{subscribeModalButtonClicked ? <ShopSubscribeModal /> : null}
 				</Container>
 			</Fragment>
 		</StandardLayout>

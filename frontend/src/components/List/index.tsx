@@ -54,35 +54,31 @@ const ShopDetail = styled.div`
 
 interface ListProps {
 	data: string;
-	click: boolean;
 }
 
-export function List({ data, click }: ListProps) {
+export function List({ data }: ListProps) {
 	const [shops] = useRecoilState(shopsState);
 	return (
 		<>
-			{shops.map((v) => {
-				if (click === true && v.name === data) {
-					return (
-						<ListItem key={data}>
-							<ShopName>{v.name}</ShopName>
-							<ShopAddress>📮 {v.address}</ShopAddress>
-							<ShopDetail>{v.explain}</ShopDetail>
-						</ListItem>
-					);
-				}
-			})}
-			{shops.map((v, i) => {
-				if (click === false) {
-					return (
-						<ListItem key={i}>
-							<ShopName>{v.name}</ShopName>
-							<ShopAddress>📮 {v.address}</ShopAddress>
-							<ShopDetail>{v.explain}</ShopDetail>
-						</ListItem>
-					);
-				}
-			})}
+			{data !== ''
+				? shops
+						.filter((item) => item.name.includes(data))
+						.map((v) => (
+							<ListItem key={data}>
+								<ShopName>{v.name}</ShopName>
+								<ShopAddress>📮 {v.address}</ShopAddress>
+								<ShopDetail>{v.explain}</ShopDetail>
+							</ListItem>
+						))
+				: shops.map((v, i) => {
+						return (
+							<ListItem key={i}>
+								<ShopName>{v.name}</ShopName>
+								<ShopAddress>📮 {v.address}</ShopAddress>
+								<ShopDetail>{v.explain}</ShopDetail>
+							</ListItem>
+						);
+				  })}
 		</>
 	);
 }
