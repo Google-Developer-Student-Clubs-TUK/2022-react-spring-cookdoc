@@ -90,7 +90,6 @@ export function Main() {
 	const [value, setValue] = useState('');
 	const [click, setClick] = useState(false);
 	const listClick = useRecoilValue(shopDetailClickState);
-	console.log(listClick);
 
 	const handleClick = () => {
 		if (input.current) {

@@ -9,7 +9,7 @@ const Container = styled.div`
 	position: absolute;
 	top: 0;
 	left: 399px;
-	transition: left 0.35s;
+	transition: left 0.5s ease-in;
 	width: 399px;
 	height: 100%;
 	background: #fff;
