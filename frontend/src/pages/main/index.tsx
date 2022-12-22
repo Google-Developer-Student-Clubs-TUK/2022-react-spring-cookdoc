@@ -159,7 +159,6 @@ export function Main() {
 					</ShopListBottom>
 				</ShopList>
 				{listClick && <Detail />}
-				{/* detail부분 아직 막혀서 더해야함*/}
 				<div id="map" style={{ width: '100%', height: '100%' }} />
 			</Fragment>
 		</StandardLayout>
