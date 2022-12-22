@@ -1,6 +1,6 @@
 package project.cookdoc.domain.shop.mapper;
 
-import project.cookdoc.domain.shop.dto.ShopRegistrationRequest;
+import project.cookdoc.domain.shop.dto.request.ShopRegistrationRequest;
 import project.cookdoc.domain.shop.entity.Shop;
 
 public class ShopMapper {
