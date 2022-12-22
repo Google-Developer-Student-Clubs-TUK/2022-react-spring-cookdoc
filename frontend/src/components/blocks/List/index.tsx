@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import dummy from 'db/data.json';
-import { ShopRegisterModal } from 'components/ShopRegisterModal';
-import { Detail } from 'components/Detail';
+import { useRecoilState } from 'recoil';
+import { shopsState } from 'stores';
 import { useSetRecoilState } from 'recoil';
-import { shopDetailClickState } from 'atoms/shopDetailList';
+import { shopDetailClickState } from 'stores/shopDetailList';
 
 const ListItem = styled.div`
 	padding: 15px;
@@ -55,48 +54,40 @@ const ShopDetail = styled.div`
 	padding: 5px;
 `;
 
-const ListContainer = styled.div`
-	margin: 0px;
-	padding: 0px;
-`;
-
 interface ListProps {
 	data: string;
-	click: boolean;
 }
 
-export function List({ data, click }: ListProps) {
+export function List({ data }: ListProps) {
+	const [shops] = useRecoilState(shopsState);
+
 	const setListClick = useSetRecoilState(shopDetailClickState);
 
 	const ListItemClick = () => {
 		setListClick(true);
 	};
 
-	const shop = dummy.shops.find((v) => v.name === data);
-	if (!shop) {
-		return (
-			<>
-				<ListContainer>
-					{dummy.shops.map((v, i) => (
-						<ListItem key={i} onClick={ListItemClick}>
-							<ShopName>{v.name}</ShopName>
-							<ShopAddress>📮 {v.address}</ShopAddress>
-							<ShopDetail>{v.explain}</ShopDetail>
-						</ListItem>
-					))}
-				</ListContainer>
-			</>
-		);
-	}
 	return (
-		<ListContainer>
-			{click && (
-				<ListItem key={data} onClick={ListItemClick}>
-					<ShopName>{shop.name}</ShopName>
-					<ShopAddress>📮 {shop.address}</ShopAddress>
-					<ShopDetail>{shop.explain}</ShopDetail>
-				</ListItem>
-			)}
-		</ListContainer>
+		<>
+			{data !== ''
+				? shops
+						.filter((item) => item.name.includes(data))
+						.map((v) => (
+							<ListItem key={data} onClick={ListItemClick}>
+								<ShopName>{v.name}</ShopName>
+								<ShopAddress>📮 {v.address}</ShopAddress>
+								<ShopDetail>{v.explain}</ShopDetail>
+							</ListItem>
+						))
+				: shops.map((v, i) => {
+						return (
+							<ListItem key={i} onClick={ListItemClick}>
+								<ShopName>{v.name}</ShopName>
+								<ShopAddress>📮 {v.address}</ShopAddress>
+								<ShopDetail>{v.explain}</ShopDetail>
+							</ListItem>
+						);
+				  })}
+		</>
 	);
 }

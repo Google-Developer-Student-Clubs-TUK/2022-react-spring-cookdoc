@@ -4,14 +4,14 @@ import axios from 'axios';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 
 import { useSetRecoilState } from 'recoil';
-import { shopRegisterButtonState } from 'atoms';
+import { shopRegisterModalButtonState, shopsState } from 'stores';
 
-import { Input } from 'components/Input';
-import { Select } from 'components/SelectInput';
-import { TextArea } from 'components/TextAreaInput';
-import { Button } from 'components/Button';
+import { Input } from 'components/atoms/Input';
+import { Select } from 'components/atoms/SelectInput';
+import { TextArea } from 'components/atoms/TextAreaInput';
+import { Button } from 'components/atoms/Button';
 import { apiUrl } from 'common/apiUrl';
-import { ImageUpload } from 'components/ImageUpload';
+import { ImageUpload } from 'components/blocks/ImageUpload';
 
 const Container = styled.div`
 	display: flex;
@@ -62,7 +62,8 @@ const ButtonContainer = styled.div`
 `;
 
 export function ShopRegisterModal() {
-	const setCancelButtonClicked = useSetRecoilState(shopRegisterButtonState);
+	const setModalButtonClicked = useSetRecoilState(shopRegisterModalButtonState);
+	const setShops = useSetRecoilState(shopsState);
 
 	const [shopName, setShopName] = useState('');
 	const [address, setAddress] = useState('');
@@ -120,17 +121,73 @@ export function ShopRegisterModal() {
 
 		form.append('name', shopName);
 		form.append('address', `${address} ${addressDetail}`);
-		form.append('detail', info);
+		form.append('explain', info);
 		for (const file of imageFileList) {
 			form.append('image', file);
 		}
 		form.append('category', category);
 		form.append('phone', phoneNumber);
 
-		axios
-			.post(`${apiUrl}/shops`, form)
-			.then((res) => console.log(res.data))
-			.catch((err) => console.log(err));
+		const formValidated = validateForm();
+
+		if (formValidated) {
+			axios
+				.post(`${apiUrl}/shops`, form)
+				.then((res) =>
+					setShops((state) => [
+						...state,
+						{
+							name: res.data.name,
+							address: res.data.address,
+							explain: res.data.explain,
+							images: res.data.images,
+							category: res.data.category,
+							phone: res.data.phone,
+						},
+					]),
+				)
+				.catch((err) => console.log(err));
+			setModalButtonClicked(false);
+		}
+	};
+
+	const validateForm = () => {
+		if (shopName === '') {
+			alert('음식점 이름을 입력해주세요');
+			return;
+		}
+
+		if (address === '') {
+			alert('음식점 주소를 입력해주세요');
+			return;
+		}
+
+		if (addressDetail === '') {
+			alert('음식점 상세 주소를 입력해주세요');
+			return;
+		}
+
+		if (info === '') {
+			alert('음식점 정보를 입력해주세요');
+			return;
+		}
+
+		if (imageURLList[0] === undefined) {
+			alert('이미지를 업로드 해주세요');
+			return;
+		}
+
+		if (category === '') {
+			alert('음식점 분류를 선택 해주세요');
+			return;
+		}
+
+		if (phoneNumber === '') {
+			alert('음식점 전화 번호를 입력해주세요');
+			return;
+		}
+
+		return true;
 	};
 
 	useEffect(() => {
@@ -208,7 +265,7 @@ export function ShopRegisterModal() {
 						}
 					/>
 					<ButtonContainer>
-						<Button onClick={() => setCancelButtonClicked(false)}>
+						<Button onClick={() => setModalButtonClicked(false)}>
 							취소하기
 						</Button>
 						<Button onClick={registShopHandler}>등록하기</Button>
