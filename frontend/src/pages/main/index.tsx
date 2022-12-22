@@ -3,6 +3,9 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { StandardLayout } from 'layout';
 import { List } from 'components';
+import { useRecoilValue } from 'recoil';
+import { shopDetailClickState } from 'stores/shopDetailList';
+import { Detail } from 'components/blocks/Detail';
 
 import { shopRegisterModalButtonState } from 'stores';
 import { ShopRegisterModal } from 'components';
@@ -17,6 +20,7 @@ const Container = styled.div`
 	display: flex;
 	width: 100%;
 	height: 100%;
+	z-index: 30;
 `;
 
 const ShopListContainer = styled.div`
@@ -92,14 +96,16 @@ const SearchInput = styled.input`
 `;
 
 const ShopListBodyContainer = styled.div`
-	height: calc(100% - 176px);
+	height: 100%;
 	overflow-y: auto;
 	border-top: 1px solid #dee3eb;
 	background: #f5f5f5;
 	padding-bottom: 40px;
 `;
 
-const ShopList = styled.div``;
+const DetailContainer = styled.div`
+	position: relative;
+`;
 
 const MapContainer = styled.div`
 	width: 70%;
@@ -112,6 +118,7 @@ const Map = styled.div`
 
 export function Main() {
 	const [value, setValue] = useState('');
+	const listClick = useRecoilValue(shopDetailClickState);
 
 	const [registerModalButtonClicked, setRegisterModalButtonClicked] =
 		useRecoilState(shopRegisterModalButtonState);
@@ -181,11 +188,11 @@ export function Main() {
 						</ShopListHeaderContainer>
 
 						<ShopListBodyContainer>
-							<ShopList>
-								<List data={value} />
-							</ShopList>
+							<List data={value} />
 						</ShopListBodyContainer>
 					</ShopListContainer>
+
+					<DetailContainer>{listClick && <Detail />}</DetailContainer>
 
 					<MapContainer>
 						<Map id="map" />

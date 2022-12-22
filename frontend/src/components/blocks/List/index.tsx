@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import { shopsState } from 'stores';
+import { useSetRecoilState } from 'recoil';
+import { shopDetailClickState } from 'stores/shopDetailList';
 
 const ListItem = styled.div`
 	padding: 15px;
@@ -58,13 +60,20 @@ interface ListProps {
 
 export function List({ data }: ListProps) {
 	const [shops] = useRecoilState(shopsState);
+
+	const setListClick = useSetRecoilState(shopDetailClickState);
+
+	const ListItemClick = () => {
+		setListClick(true);
+	};
+
 	return (
 		<>
 			{data !== ''
 				? shops
 						.filter((item) => item.name.includes(data))
 						.map((v) => (
-							<ListItem key={data}>
+							<ListItem key={data} onClick={ListItemClick}>
 								<ShopName>{v.name}</ShopName>
 								<ShopAddress>📮 {v.address}</ShopAddress>
 								<ShopDetail>{v.explain}</ShopDetail>
@@ -72,7 +81,7 @@ export function List({ data }: ListProps) {
 						))
 				: shops.map((v, i) => {
 						return (
-							<ListItem key={i}>
+							<ListItem key={i} onClick={ListItemClick}>
 								<ShopName>{v.name}</ShopName>
 								<ShopAddress>📮 {v.address}</ShopAddress>
 								<ShopDetail>{v.explain}</ShopDetail>
