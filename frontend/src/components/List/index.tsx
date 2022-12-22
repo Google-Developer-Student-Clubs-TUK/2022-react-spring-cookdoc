@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import dummy from 'db/data.json';
 import { ShopRegisterModal } from 'components/ShopRegisterModal';
+import { Detail } from 'components/Detail';
+import { useSetRecoilState } from 'recoil';
+import { shopDetailClickState } from 'atoms/shopDetailList';
 
 const ListItem = styled.div`
 	padding: 15px;
@@ -52,38 +55,48 @@ const ShopDetail = styled.div`
 	padding: 5px;
 `;
 
+const ListContainer = styled.div`
+	margin: 0px;
+	padding: 0px;
+`;
+
 interface ListProps {
 	data: string;
 	click: boolean;
 }
 
 export function List({ data, click }: ListProps) {
+	const setListClick = useSetRecoilState(shopDetailClickState);
+
+	const ListItemClick = () => {
+		setListClick(true);
+	};
+
+	const shop = dummy.shops.find((v) => v.name === data);
+	if (!shop) {
+		return (
+			<>
+				<ListContainer>
+					{dummy.shops.map((v, i) => (
+						<ListItem key={i} onClick={ListItemClick}>
+							<ShopName>{v.name}</ShopName>
+							<ShopAddress>📮 {v.address}</ShopAddress>
+							<ShopDetail>{v.explain}</ShopDetail>
+						</ListItem>
+					))}
+				</ListContainer>
+			</>
+		);
+	}
 	return (
-		<>
-			{dummy.shops.map((v) => {
-				console.log(v.name);
-				if (click === true && v.name === data) {
-					return (
-						<ListItem key={data}>
-							<ShopName>{v.name}</ShopName>
-							<ShopAddress>📮 {v.address}</ShopAddress>
-							<ShopDetail>{v.explain}</ShopDetail>
-						</ListItem>
-					);
-				}
-			})}
-			{dummy.shops.map((v, i) => {
-				console.log(v.name);
-				if (click === false) {
-					return (
-						<ListItem key={i}>
-							<ShopName>{v.name}</ShopName>
-							<ShopAddress>📮 {v.address}</ShopAddress>
-							<ShopDetail>{v.explain}</ShopDetail>
-						</ListItem>
-					);
-				}
-			})}
-		</>
+		<ListContainer>
+			{click && (
+				<ListItem key={data} onClick={ListItemClick}>
+					<ShopName>{shop.name}</ShopName>
+					<ShopAddress>📮 {shop.address}</ShopAddress>
+					<ShopDetail>{shop.explain}</ShopDetail>
+				</ListItem>
+			)}
+		</ListContainer>
 	);
 }

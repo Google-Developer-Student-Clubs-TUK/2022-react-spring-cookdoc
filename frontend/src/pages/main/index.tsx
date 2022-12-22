@@ -2,6 +2,9 @@ import React, { Fragment, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { StandardLayout } from 'layout';
 import { List } from 'components';
+import { useRecoilValue } from 'recoil';
+import { shopDetailClickState } from 'atoms/shopDetailList';
+import { Detail } from 'components/Detail';
 
 declare global {
 	interface Window {
@@ -13,6 +16,7 @@ const ShopList = styled.div`
 	box-sizing: border-box;
 	width: 399px;
 	height: 100%;
+	z-index: 30;
 `;
 
 const ShopListHeader = styled.div`
@@ -81,15 +85,11 @@ const Button = styled.button`
 	cursor: pointer;
 `;
 
-const ListResult = styled.div`
-	margin: 0px;
-	padding: 0px;
-`;
-
 export function Main() {
 	const input = useRef<HTMLInputElement>(null);
 	const [value, setValue] = useState('');
 	const [click, setClick] = useState(false);
+	const listClick = useRecoilValue(shopDetailClickState);
 
 	const handleClick = () => {
 		if (input.current) {
@@ -155,11 +155,10 @@ export function Main() {
 					</ShopListHeader>
 
 					<ShopListBottom>
-						<ListResult>
-							<List data={value} click={click} />
-						</ListResult>
+						<List data={value} click={click} />
 					</ShopListBottom>
 				</ShopList>
+				{listClick && <Detail />}
 				<div id="map" style={{ width: '100%', height: '100%' }} />
 			</Fragment>
 		</StandardLayout>
