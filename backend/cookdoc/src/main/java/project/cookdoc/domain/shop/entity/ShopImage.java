@@ -1,9 +1,6 @@
 package project.cookdoc.domain.shop.entity;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import project.cookdoc.global.entity.BaseEntity;
 
@@ -12,8 +9,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Builder
 @DynamicInsert
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "shop_images")
 public class ShopImage extends BaseEntity {
     @Id
@@ -22,5 +21,10 @@ public class ShopImage extends BaseEntity {
     private Long id;
 
     @Column
+    @NonNull
+    private Long shop_id;
+
+    @Column
     private String image_url;
+
 }

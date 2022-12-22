@@ -11,13 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import project.cookdoc.domain.shop.dto.ShopRegistrationRequest;
-import project.cookdoc.domain.shop.entity.Shop;
-import project.cookdoc.domain.shop.mapper.ShopMapper;
 import project.cookdoc.domain.shop.repository.ShopRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @WebMvcTest(ShopService.class)
 @ExtendWith(SpringExtension.class)

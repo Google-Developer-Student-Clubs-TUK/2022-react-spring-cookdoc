@@ -9,9 +9,11 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @DynamicInsert
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "shops")
 public class Shop extends BaseEntity {
     @Id
@@ -19,40 +21,31 @@ public class Shop extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    /*@Id
-    @Column(unique = true, name = "shop_id")
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String uuid;*/
-
     @Column
+    @NonNull
     private Long user_id;
 
     @Column
+    @NonNull
     private String name;
 
     @Column
+    @NonNull
     private String address;
 
     @Column
+    @NonNull
     private String phone;
 
     @Column
+    @NonNull
     private String detail;
 
     @Column
+    @NonNull
     private String category;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "shop_id")
     private List<ShopImage> shop_images;
-    @Builder
-    public Shop(Long user_id, String name, String address, String phone, String detail, String category) {
-        this.user_id = user_id;
-        this.name = name;
-        this.address = address;
-        this.phone = phone;
-        this.detail = detail;
-        this.category = category;
-    }
 }
