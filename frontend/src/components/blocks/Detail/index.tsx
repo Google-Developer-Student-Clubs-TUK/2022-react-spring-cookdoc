@@ -19,9 +19,18 @@ const Container = styled.div`
 	z-index: 1000;
 `;
 
-const DetailTop = styled.div``;
+const DetailTop = styled.div`
+	padding: 20px;
+	position: relative;
+	background: #fff;
+	line-height: 1.5;
+	height: calc(100% - 310px);
+`;
 
 const CloseContainer = styled.div`
+	position: relative;
+	text-align: center;
+	margin-top: 20px;
 	button {
 		border-radius: 5px;
 		height: 35px;
@@ -34,7 +43,15 @@ const CloseContainer = styled.div`
 	}
 `;
 
-const DetailHeader = styled.div``;
+const DetailHeader = styled.div`
+	font-size: 2rem;
+	font-weight: 500;
+	word-break: keep-all;
+	margin-bottom: 20px;
+	padding: 35px 0 20px;
+	border-bottom: 1px solid #dee3eb;
+	text-align: center;
+`;
 
 export function Detail() {
 	const [, setClose] = useRecoilState(shopListCloseCheck);
