@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import project.cookdoc.domain.shop.dto.request.ShopRegistrationRequest;
+import project.cookdoc.domain.shop.dto.ShopRegistrationRequest;
 import project.cookdoc.domain.shop.entity.Shop;
 import project.cookdoc.domain.shop.entity.ShopImage;
 import project.cookdoc.domain.shop.mapper.ShopImageMapper;
