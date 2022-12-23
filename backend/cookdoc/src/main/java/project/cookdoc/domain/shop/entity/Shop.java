@@ -2,10 +2,12 @@ package project.cookdoc.domain.shop.entity;
 
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
+import project.cookdoc.domain.user.entity.Subscriber;
 import project.cookdoc.global.entity.BaseEntity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -48,4 +50,7 @@ public class Shop extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "shop_id")
     private List<ShopImage> shop_images;
+
+    @OneToMany(mappedBy = "shop")
+    Set<Subscriber> subscribers;
 }

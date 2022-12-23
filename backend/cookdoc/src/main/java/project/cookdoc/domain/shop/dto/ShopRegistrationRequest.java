@@ -1,14 +1,16 @@
-package project.cookdoc.domain.shop.dto.request;
+package project.cookdoc.domain.shop.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Getter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class ShopRegistrationRequest {
     private Long user_id;
