@@ -4,14 +4,44 @@ spring:
     url: jdbc:mysql://localhost:13306/cookdoc?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root # username
     password: '0216' # password
+  jackson:
+    serialization:
+      fail_on_empty_beans: false
 
   jpa:
     hibernate:
-      ddl-auto: create
+#      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
 
+# Custom properties
+app:
+  cors:
+    allowed-origins: http://localhost,http://localhost:3000,http://localhost:8080
+    # comma (',') seperated list of allowed origins for CORS
+
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+
+cloud:
+  aws:
+    s3:
+      bucket: gdsc.cookdoc.bucket
+    credentials:
+      access-key: AKIA3F6XNQ75K34M25FK
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR

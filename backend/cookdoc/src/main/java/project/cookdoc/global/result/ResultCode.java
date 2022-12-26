@@ -11,6 +11,10 @@ public enum ResultCode {
     // 도메인 별로 나눠서 관리
     // Shop
     SHOP_REGISTRATION_SUCCESS("S001", "음식점 등록 완료"),
+    SHOP_GET_SUCCESS("S002", "음식점 조회 완료"),
+
+    // User
+    USER_SUBSCRIBE_SUCCESS("U001", "음식점 구독 완료"),
     ;
 
     private final String code;
