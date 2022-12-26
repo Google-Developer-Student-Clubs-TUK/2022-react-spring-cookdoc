@@ -71,6 +71,7 @@ export function ShopRegisterModal() {
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [category, setCategory] = useState('');
 	const [info, setInfo] = useState('');
+	const [subscribeCost, setSubscribeCost] = useState('');
 	const [imageURLList, setImageURLList] = useState<string[]>([]);
 	const [imageFileList, setImageFileList] = useState<File[]>([]);
 
@@ -122,11 +123,15 @@ export function ShopRegisterModal() {
 		form.append('name', shopName);
 		form.append('address', `${address} ${addressDetail}`);
 		form.append('explain', info);
-		for (const file of imageFileList) {
-			form.append('image', file);
+		// for (const file of imageFileList) {
+		// 	form.append('images', file);
+		// }
+		for (const file of imageURLList) {
+			form.append('images', file);
 		}
 		form.append('category', category);
 		form.append('phone', phoneNumber);
+		form.append('subscribeCost', subscribeCost);
 
 		const formValidated = validateForm();
 
@@ -143,6 +148,7 @@ export function ShopRegisterModal() {
 							images: res.data.images,
 							category: res.data.category,
 							phone: res.data.phone,
+							subscribeCost: res.data.subscribeCost,
 						},
 					]),
 				)
@@ -184,6 +190,11 @@ export function ShopRegisterModal() {
 
 		if (phoneNumber === '') {
 			alert('음식점 전화 번호를 입력해주세요');
+			return;
+		}
+
+		if (subscribeCost === '') {
+			alert('구독 비용을 입력해주세요');
 			return;
 		}
 
@@ -243,6 +254,15 @@ export function ShopRegisterModal() {
 						value={phoneNumber}
 						onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
 							setPhoneNumber(event.target.value.replace(/[^0-9]/g, ''));
+						}}
+					/>
+					<Input
+						id="구독비용"
+						label="💵 구독 비용"
+						placeholder="구독 비용을 입력해주세요"
+						value={subscribeCost}
+						onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+							setSubscribeCost(event.target.value.replace(/[^0-9]/g, ''));
 						}}
 					/>
 					<Select

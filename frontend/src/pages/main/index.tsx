@@ -1,14 +1,20 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { StandardLayout } from 'layout';
-import { List } from 'components';
-import { useRecoilValue } from 'recoil';
-import { shopDetailClickState } from 'stores/shopDetailList';
-import { Detail } from 'components/blocks/Detail';
 
-import { shopRegisterModalButtonState } from 'stores';
-import { ShopRegisterModal } from 'components';
+import { StandardLayout } from 'layout';
+import {
+	shopRegisterModalButtonState,
+	shopDetailClickState,
+	shopSubscribeModalButtonState,
+	shopDetail,
+} from 'stores';
+import {
+	List,
+	ShopRegisterModal,
+	Detail,
+	ShopSubscribeModal,
+} from 'components';
 
 declare global {
 	interface Window {
@@ -24,6 +30,7 @@ const Container = styled.div`
 `;
 
 const ShopListContainer = styled.div`
+	min-width: 30%;
 	width: 30%;
 	height: 100%;
 	display: flex;
@@ -120,8 +127,13 @@ export function Main() {
 	const [value, setValue] = useState('');
 	const listClick = useRecoilValue(shopDetailClickState);
 
+	const [detail] = useRecoilState(shopDetail);
+
 	const [registerModalButtonClicked, setRegisterModalButtonClicked] =
 		useRecoilState(shopRegisterModalButtonState);
+	const [subscribeModalButtonClicked] = useRecoilState(
+		shopSubscribeModalButtonState,
+	);
 
 	useEffect(() => {
 		const container = document.getElementById('map');
@@ -199,6 +211,9 @@ export function Main() {
 					</MapContainer>
 
 					{registerModalButtonClicked ? <ShopRegisterModal /> : null}
+					{subscribeModalButtonClicked && (
+						<ShopSubscribeModal subscribeCost={detail.subscribeCost} />
+					)}
 				</Container>
 			</Fragment>
 		</StandardLayout>

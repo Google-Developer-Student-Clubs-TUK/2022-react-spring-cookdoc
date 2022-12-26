@@ -4,9 +4,10 @@ interface IShops {
 	name: string;
 	address: string;
 	explain: string;
-	images: { url: string }[];
+	images: string[];
 	category: string;
 	phone: string;
+	subscribeCost: string;
 }
 
 export const shopsState = atom<IShops[]>({
