@@ -21,7 +21,7 @@ const Container = styled.div`
 	bottom: 0;
 
 	backdrop-filter: blur(16px);
-	z-index: 1000;
+	z-index: 10000;
 `;
 
 const SubContainer = styled.div`
@@ -58,7 +58,11 @@ const ButtonContainer = styled.div`
 	gap: 32px;
 `;
 
-export function ShopSubscribeModal() {
+interface Props {
+	subscribeCost: string;
+}
+
+export function ShopSubscribeModal({ subscribeCost }: Props) {
 	const setSubscribeModalButtonClicked = useSetRecoilState(
 		shopSubscribeModalButtonState,
 	);
@@ -74,9 +78,11 @@ export function ShopSubscribeModal() {
 		setCurrentDate(
 			`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
 		);
-		const dateGap =
-			Date.parse(subscribeEndDate) - Date.parse(subscribeStartDate);
-		setTerm(String(dateGap / 1000 / 60 / 60 / 24));
+		if (subscribeStartDate !== '' && subscribeEndDate !== '') {
+			const dateGap =
+				Date.parse(subscribeEndDate) - Date.parse(subscribeStartDate);
+			setTerm(String(dateGap / 1000 / 60 / 60 / 24));
+		}
 	}, [subscribeStartDate, subscribeEndDate]);
 
 	const registShopHandler = () => {
@@ -92,6 +98,11 @@ export function ShopSubscribeModal() {
 
 		setSubscribeModalButtonClicked(false);
 	};
+
+	useEffect(() => {
+		if (term === '') setTotalPayment('');
+		else setTotalPayment(String(+subscribeCost * +term));
+	}, [term]);
 
 	return (
 		<Container>
@@ -123,10 +134,8 @@ export function ShopSubscribeModal() {
 						id="총 지불 금액"
 						label="💳 총 지불 금액"
 						placeholder="총 지불 금액"
+						readOnly
 						value={totalPayment}
-						onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-							setTotalPayment(event.target.value)
-						}
 					/>
 					<ButtonContainer>
 						<Button onClick={() => setSubscribeModalButtonClicked(false)}>
