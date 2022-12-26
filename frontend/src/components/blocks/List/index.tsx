@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { shopsState } from 'stores';
+import { shopsState, shopDetail, shopDetailClickState } from 'stores';
 import { useSetRecoilState } from 'recoil';
-import { shopDetailClickState } from 'stores/shopDetailList';
 
 const ListItem = styled.div`
 	padding: 15px;
@@ -62,9 +61,27 @@ export function List({ data }: ListProps) {
 	const [shops] = useRecoilState(shopsState);
 
 	const setListClick = useSetRecoilState(shopDetailClickState);
+	const setShopDetail = useSetRecoilState(shopDetail);
 
-	const ListItemClick = () => {
+	const ListItemClick = (item: {
+		name: string;
+		address: string;
+		explain: string;
+		images: string[];
+		category: string;
+		phone: string;
+		subscribeCost: string;
+	}) => {
 		setListClick(true);
+		setShopDetail({
+			name: item.name,
+			address: item.address,
+			explain: item.explain,
+			images: item.images,
+			category: item.category,
+			phone: item.phone,
+			subscribeCost: item.subscribeCost,
+		});
 	};
 
 	return (
@@ -72,19 +89,19 @@ export function List({ data }: ListProps) {
 			{data !== ''
 				? shops
 						.filter((item) => item.name.includes(data))
-						.map((v) => (
-							<ListItem key={data} onClick={ListItemClick}>
-								<ShopName>{v.name}</ShopName>
-								<ShopAddress>📮 {v.address}</ShopAddress>
-								<ShopDetail>{v.explain}</ShopDetail>
+						.map((item) => (
+							<ListItem key={data} onClick={() => ListItemClick(item)}>
+								<ShopName>{item.name}</ShopName>
+								<ShopAddress>📮 {item.address}</ShopAddress>
+								<ShopDetail>{item.explain}</ShopDetail>
 							</ListItem>
 						))
-				: shops.map((v, i) => {
+				: shops.map((item, i) => {
 						return (
-							<ListItem key={i} onClick={ListItemClick}>
-								<ShopName>{v.name}</ShopName>
-								<ShopAddress>📮 {v.address}</ShopAddress>
-								<ShopDetail>{v.explain}</ShopDetail>
+							<ListItem key={i} onClick={() => ListItemClick(item)}>
+								<ShopName>{item.name}</ShopName>
+								<ShopAddress>📮 {item.address}</ShopAddress>
+								<ShopDetail>{item.explain}</ShopDetail>
 							</ListItem>
 						);
 				  })}
