@@ -145,7 +145,7 @@ export function ShopRegisterModal() {
 							name: res.data.name,
 							address: res.data.address,
 							explain: res.data.explain,
-							images: res.data.images,
+							images: [res.data.images],
 							category: res.data.category,
 							phone: res.data.phone,
 							subscribeCost: res.data.subscribeCost,
