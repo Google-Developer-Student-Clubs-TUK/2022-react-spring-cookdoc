@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { constSelector, useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { StandardLayout } from 'layout';
@@ -8,6 +8,7 @@ import {
 	shopDetailClickState,
 	shopSubscribeModalButtonState,
 	shopDetail,
+	shopsState,
 } from 'stores';
 import {
 	List,
@@ -128,6 +129,8 @@ export function Main() {
 	const listClick = useRecoilValue(shopDetailClickState);
 
 	const [detail] = useRecoilState(shopDetail);
+	const [shops] = useRecoilState(shopsState);
+	const shopAddress = shops.map((shop) => shop.address);
 
 	const [registerModalButtonClicked, setRegisterModalButtonClicked] =
 		useRecoilState(shopRegisterModalButtonState);
@@ -142,37 +145,40 @@ export function Main() {
 			level: 3,
 		};
 		const map = new window.kakao.maps.Map(container, options);
-		const positions = [
-			{
-				title: '노랑통닭',
-				latlng: new window.kakao.maps.LatLng(37.3455, 126.735324),
-			},
-			{
-				title: '엽기 떡볶이',
-				latlng: new window.kakao.maps.LatLng(37.3629, 126.729764),
-			},
-			{
-				title: 'BHC 치킨',
-				latlng: new window.kakao.maps.LatLng(37.3525, 126.729845),
-			},
-			{
-				title: '던킷도넛츠',
-				latlng: new window.kakao.maps.LatLng(37.3449, 126.738508),
-			},
-		];
+
 		const markerPosition = new window.kakao.maps.LatLng(37.3399, 126.733946);
 		const mainMarker = new window.kakao.maps.Marker({
 			position: markerPosition,
 		});
-		for (let i = 0; i < positions.length; i++) {
-			const marker = new window.kakao.maps.Marker({
-				map: map,
-				position: positions[i].latlng,
-				title: positions[i].title,
-			});
-		}
+
 		mainMarker.setMap(map);
-	}, []);
+		if (shopAddress) {
+			const geocoder = new window.kakao.maps.services.Geocoder();
+			geocoder.addressSearch(
+				shopAddress,
+				function (result: any, status: string) {
+					if (status === window.kakao.maps.services.Status.OK) {
+						const coords = new window.kakao.maps.LatLng(
+							result[0].y,
+							result[0].x,
+						);
+
+						const marker = new window.kakao.maps.Marker({
+							map: map,
+							position: coords,
+						});
+
+						const infowindow = new window.kakao.maps.InfoWindow({
+							content: `<div style="width:150px;text-align:center;padding:6px 0;">${shopAddress}</div>`,
+						});
+						infowindow.open(map, marker);
+
+						map.setCenter(coords);
+					}
+				},
+			);
+		}
+	}, [shopAddress]);
 
 	return (
 		<StandardLayout>
