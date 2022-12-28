@@ -3,30 +3,27 @@ version: "3"
 services:
   database:
     image: mysql
-    container_name: cookdoc
     environment:
       - MYSQL_DATABASE = cookdoc
-      - MYSQL_ROOT_PASSWORD = %
-      - MYSQL_ROOT_HOST = 0216
+      - MYSQL_ROOT_PASSWORD = 0216
     command: ['--charcter-set-server=utfmb4', '--collation-server=utf8mb4_unicode_ci']
     ports:
-      - 13306:13306
+      - 3306:3306
     networks:
       - test_network_02
 
   application:
     build: .
     restart: always
-    ports:
-      - 8080:8080
-    depends_on:
-      - database
-    container_name: cookdoc
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/cookdoc?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
       SPRING_DATASOURCE_USERNMAE: root
       SPRING_DATASOURCE_PASSWORD: 0216
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
     networks:
       - test_network_02
 
