@@ -1,5 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { constSelector, useRecoilState, useRecoilValue } from 'recoil';
+import {
+	constSelector,
+	useRecoilState,
+	useRecoilValue,
+	useSetRecoilState,
+} from 'recoil';
 import styled from 'styled-components';
 
 import { StandardLayout } from 'layout';
@@ -9,6 +14,7 @@ import {
 	shopSubscribeModalButtonState,
 	shopDetail,
 	shopsState,
+	shopMarkerState,
 } from 'stores';
 import {
 	List,
@@ -131,6 +137,8 @@ export function Main() {
 	const [detail] = useRecoilState(shopDetail);
 	const [shops] = useRecoilState(shopsState);
 	const shopAddress = shops.map((shop) => shop.address);
+	const [shopMarker] = useRecoilState(shopMarkerState);
+	console.log(shopMarker);
 
 	const [registerModalButtonClicked, setRegisterModalButtonClicked] =
 		useRecoilState(shopRegisterModalButtonState);
@@ -152,12 +160,14 @@ export function Main() {
 		});
 
 		mainMarker.setMap(map);
-		if (shopAddress) {
+
+		if (shopMarker.address) {
 			const geocoder = new window.kakao.maps.services.Geocoder();
 			geocoder.addressSearch(
-				shopAddress,
+				shopMarker.address,
 				function (result: any, status: string) {
 					if (status === window.kakao.maps.services.Status.OK) {
+						console.log(status);
 						const coords = new window.kakao.maps.LatLng(
 							result[0].y,
 							result[0].x,
@@ -169,7 +179,7 @@ export function Main() {
 						});
 
 						const infowindow = new window.kakao.maps.InfoWindow({
-							content: `<div style="width:150px;text-align:center;padding:6px 0;">${shopAddress}</div>`,
+							content: `<div style="width:150px;text-align:center;padding:6px 6px;">${shopMarker.address}</div>`,
 						});
 						infowindow.open(map, marker);
 
@@ -178,7 +188,7 @@ export function Main() {
 				},
 			);
 		}
-	}, [shopAddress]);
+	}, [shopMarker]);
 
 	return (
 		<StandardLayout>
