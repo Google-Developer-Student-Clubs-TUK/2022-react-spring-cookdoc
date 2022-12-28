@@ -188,7 +188,7 @@ export function Main() {
 				},
 			);
 		}
-	}, [shopMarker]);
+	}, [shopMarker.address]);
 
 	return (
 		<StandardLayout>
