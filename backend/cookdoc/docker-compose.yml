@@ -9,6 +9,8 @@ services:
     command: ['--charcter-set-server=utfmb4', '--collation-server=utf8mb4_unicode_ci']
     ports:
       - 3306:3306
+    volumes:
+      - ./:/database
     networks:
       - test_network_02
 
