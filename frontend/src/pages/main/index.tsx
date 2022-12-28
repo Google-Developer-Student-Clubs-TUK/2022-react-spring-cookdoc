@@ -136,9 +136,7 @@ export function Main() {
 
 	const [detail] = useRecoilState(shopDetail);
 	const [shops] = useRecoilState(shopsState);
-	const shopAddress = shops.map((shop) => shop.address);
 	const [shopMarker] = useRecoilState(shopMarkerState);
-	console.log(shopMarker);
 
 	const [registerModalButtonClicked, setRegisterModalButtonClicked] =
 		useRecoilState(shopRegisterModalButtonState);
