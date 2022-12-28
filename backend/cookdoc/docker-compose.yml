@@ -10,7 +10,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./:/database
+      - ./mysql-init-files/:/docker-entrypoint-initdb.d/
     networks:
       - test_network_02
 
