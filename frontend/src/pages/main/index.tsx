@@ -135,7 +135,6 @@ export function Main() {
 	const listClick = useRecoilValue(shopDetailClickState);
 
 	const [detail] = useRecoilState(shopDetail);
-	const [shops] = useRecoilState(shopsState);
 	const [shopMarker] = useRecoilState(shopMarkerState);
 
 	const [registerModalButtonClicked, setRegisterModalButtonClicked] =
@@ -177,7 +176,7 @@ export function Main() {
 						});
 
 						const infowindow = new window.kakao.maps.InfoWindow({
-							content: `<div style="width:150px;text-align:center;padding:6px 6px;">${shopMarker.address}</div>`,
+							content: `<div style="width:150px;text-align:center;padding:6px 0;">${shopMarker.address}</>`,
 						});
 						infowindow.open(map, marker);
 
