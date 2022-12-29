@@ -10,7 +10,6 @@ import java.util.List;
 
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class ShopRegistrationRequest {
     private Long user_id;
