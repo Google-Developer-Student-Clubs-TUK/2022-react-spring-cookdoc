@@ -88,11 +88,19 @@ export function ShopSubscribeModal({ subscribeCost }: Props) {
 	const registShopHandler = () => {
 		const form = new FormData();
 
-		form.append('total_payment', totalPayment);
 		form.append('term', term);
+		// form.append('term_start', subscribeStartDate);
+		// form.append('term_finish', subscribeEndDate);
+
+		form.append('total_payment', totalPayment);
+		form.append('is_extend', '0');
 
 		axios
-			.post(`${apiUrl}/shops`, form)
+			.post(`${apiUrl}/users/1/shops/1/subscribes`, {
+				term: term,
+				total_payment: totalPayment,
+				is_extend: '0',
+			})
 			.then((res) => console.log(res.data))
 			.catch((err) => console.log(err));
 

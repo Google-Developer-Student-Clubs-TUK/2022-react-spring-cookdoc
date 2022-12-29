@@ -275,11 +275,12 @@ export function Detail() {
 
 			<DetailContainer>
 				<Title>💬 음식점 소개</Title>
-				<ShopExplain>{detail.explain}</ShopExplain>
+				<ShopExplain>{detail.detail}</ShopExplain>
 			</DetailContainer>
 
 			<Horizon />
 
+			{/*
 			<ImageContainer>
 				<PagenationContainer>
 					<PagenationButton left onClick={onClickPrevButton}>
@@ -307,7 +308,7 @@ export function Detail() {
 					<PreviewImage src={imageURL} alt={imageURL} />
 				</PreviewImageContainer>
 			</ImageContainer>
-
+			*/}
 			<ButtonContainer>
 				<Button onClick={closeClick}>닫기</Button>
 				<Button onClick={() => setSubscribeModalButtonClicked(true)}>
