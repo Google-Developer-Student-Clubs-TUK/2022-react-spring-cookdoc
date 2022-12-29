@@ -3,7 +3,7 @@ import { atom } from 'recoil';
 interface IShopDetail {
 	name: string;
 	address: string;
-	explain: string;
+	detail: string;
 	images: string[];
 	category: string;
 	phone: string;
@@ -15,7 +15,7 @@ export const shopDetail = atom<IShopDetail>({
 	default: {
 		name: '',
 		address: '',
-		explain: '',
+		detail: '',
 		images: [],
 		category: '',
 		phone: '',
