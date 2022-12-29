@@ -18,5 +18,7 @@ public class ShopRegistrationRequest {
     private String phone;
     private String detail;
     private String category;
+
+    private int payment;
     private List<MultipartFile> images;
 }

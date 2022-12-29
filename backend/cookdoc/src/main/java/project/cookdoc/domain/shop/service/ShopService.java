@@ -62,7 +62,6 @@ public class ShopService {
         System.out.println(shop.getId());
 
         List<ShopImage> images = shopImageRepository.findImagesByShopId(shop.getId());
-        System.out.println(images);
         shop.setShop_images(images);
         return shop;
     }

@@ -12,6 +12,7 @@ public class ShopMapper {
                 .phone(request.getPhone())
                 .detail(request.getDetail())
                 .category(request.getCategory())
+                .payment(request.getPayment())
                 .build();
     }
 }
