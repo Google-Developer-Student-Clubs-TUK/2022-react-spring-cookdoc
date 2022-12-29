@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.joda.time.LocalDate;
+import project.cookdoc.domain.shop.entity.Shop;
 
 
 @Getter
@@ -12,7 +13,7 @@ import org.joda.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubscribeResponse {
-    private Long shop_id;
+    private Shop shop;
     private String term_start;
     private String term_finish;
     private int total_payment;

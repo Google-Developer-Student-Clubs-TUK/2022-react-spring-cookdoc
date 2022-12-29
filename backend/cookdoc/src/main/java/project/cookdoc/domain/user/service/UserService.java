@@ -49,7 +49,7 @@ public class UserService {
         subscriberRepository.findSubscribersByUserId(user_id).forEach(
                 subscriber -> subscribers.add(
                         new SubscribeResponse(
-                                subscriber.getShop().getId(),
+                                shopRepository.getById(subscriber.getShop().getId()),
                                 subscriber.getTerm_start().toString(),
                                 subscriber.getTerm_finish().toString(),
                                 subscriber.getTotal_payment()
