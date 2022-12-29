@@ -3,24 +3,14 @@ package project.cookdoc.domain.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import project.cookdoc.domain.shop.dto.ShopRegistrationRequest;
-import project.cookdoc.domain.shop.entity.Shop;
-import project.cookdoc.domain.shop.entity.ShopImage;
-import project.cookdoc.domain.shop.mapper.ShopImageMapper;
-import project.cookdoc.domain.shop.mapper.ShopMapper;
-import project.cookdoc.domain.shop.repository.ShopImageRepository;
 import project.cookdoc.domain.shop.repository.ShopRepository;
 import project.cookdoc.domain.user.dto.SubscribeRequest;
+import project.cookdoc.domain.user.dto.SubscribeResponse;
 import project.cookdoc.domain.user.entity.Subscriber;
-import project.cookdoc.domain.user.entity.User;
 import project.cookdoc.domain.user.repository.SubscriberRepository;
 import project.cookdoc.domain.user.repository.UserRepository;
-import project.cookdoc.s3.util.S3Manager;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +25,7 @@ public class UserService {
     private final SubscriberRepository subscriberRepository;
 
     @Transactional
-    public void subscribe(Long user_id, Long shop_id, SubscribeRequest request){
+    public void registration(Long user_id, Long shop_id, SubscribeRequest request){
 
         // 1. 구독 일 계산
         int term = request.getTerm(); // 구독일
@@ -51,5 +41,22 @@ public class UserService {
         subscriber.setTotal_payment(request.getTotal_payment());
 
         subscriberRepository.save(subscriber);
+    }
+
+    public List<SubscribeResponse> getSubscribers(Long user_id) {
+        List<SubscribeResponse> subscribers = new ArrayList<>();
+
+        subscriberRepository.findSubscribersByUserId(user_id).forEach(
+                subscriber -> subscribers.add(
+                        new SubscribeResponse(
+                                subscriber.getShop().getId(),
+                                subscriber.getTerm_start().toString(),
+                                subscriber.getTerm_finish().toString(),
+                                subscriber.getTotal_payment()
+                        )
+                )
+
+        );
+        return subscribers;
     }
 }

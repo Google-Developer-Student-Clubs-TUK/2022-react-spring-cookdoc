@@ -15,6 +15,7 @@ public enum ResultCode {
 
     // User
     USER_SUBSCRIBE_SUCCESS("U001", "음식점 구독 완료"),
+    USER_GET_SUBSCRIBE_SUCCESS("U001", "음식점 구독 내역 조회 완료"),
     ;
 
     private final String code;

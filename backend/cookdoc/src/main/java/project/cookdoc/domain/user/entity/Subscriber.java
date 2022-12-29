@@ -41,4 +41,5 @@ public class Subscriber extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
+
 }
