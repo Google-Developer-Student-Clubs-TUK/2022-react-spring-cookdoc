@@ -1,7 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { shopsState, shopDetail, shopDetailClickState } from 'stores';
+import {
+	shopsState,
+	shopDetail,
+	shopDetailClickState,
+	shopMarkerState,
+} from 'stores';
 import { useSetRecoilState } from 'recoil';
 
 const ListItem = styled.div`
@@ -62,6 +67,7 @@ export function List({ data }: ListProps) {
 
 	const setListClick = useSetRecoilState(shopDetailClickState);
 	const setShopDetail = useSetRecoilState(shopDetail);
+	const setShopMarker = useSetRecoilState(shopMarkerState);
 
 	const ListItemClick = (item: {
 		name: string;
@@ -81,6 +87,9 @@ export function List({ data }: ListProps) {
 			category: item.category,
 			phone: item.phone,
 			subscribeCost: item.subscribeCost,
+		});
+		setShopMarker({
+			address: item.address,
 		});
 	};
 
