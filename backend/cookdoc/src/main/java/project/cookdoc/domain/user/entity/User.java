@@ -1,5 +1,6 @@
 package project.cookdoc.domain.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import project.cookdoc.domain.shop.entity.ShopImage;
@@ -40,5 +41,6 @@ public class User extends BaseEntity {
     private String address;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     Set<Subscriber> subscribers;
 }

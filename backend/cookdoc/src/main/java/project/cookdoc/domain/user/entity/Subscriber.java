@@ -1,5 +1,6 @@
 package project.cookdoc.domain.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.annotation.CreatedDate;
@@ -35,10 +36,12 @@ public class Subscriber extends BaseEntity {
     private int total_payment;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "shop_id")
     Shop shop;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "user_id")
     User user;
 

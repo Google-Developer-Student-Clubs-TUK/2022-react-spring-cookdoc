@@ -1,5 +1,6 @@
 package project.cookdoc.domain.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import project.cookdoc.domain.user.entity.Subscriber;
@@ -53,10 +54,12 @@ public class Shop extends BaseEntity {
     private int payment;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonBackReference
     @JoinColumn(name = "shop_id")
     private List<ShopImage> shop_images;
 
     @OneToMany(mappedBy = "shop")
+    @JsonBackReference
     Set<Subscriber> subscribers;
 
 }
