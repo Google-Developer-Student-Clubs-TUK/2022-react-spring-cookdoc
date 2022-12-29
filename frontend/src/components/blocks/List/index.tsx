@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import {
@@ -8,6 +8,8 @@ import {
 	shopMarkerState,
 } from 'stores';
 import { useSetRecoilState } from 'recoil';
+import axios from 'axios';
+import { apiUrl } from 'common/apiUrl';
 
 const ListItem = styled.div`
 	padding: 15px;
@@ -59,11 +61,18 @@ const ShopDetail = styled.div`
 `;
 
 interface ListProps {
-	data: string;
+	searchName: string;
 }
 
-export function List({ data }: ListProps) {
-	const [shops] = useRecoilState(shopsState);
+export function List({ searchName }: ListProps) {
+	const [shops, setShops] = useRecoilState(shopsState);
+
+	useEffect(() => {
+		axios
+			.get(`${apiUrl}/shops`)
+			.then((res) => setShops([...res.data.data]))
+			.catch((err) => console.log(err));
+	}, []);
 
 	const setListClick = useSetRecoilState(shopDetailClickState);
 	const setShopDetail = useSetRecoilState(shopDetail);
@@ -72,21 +81,21 @@ export function List({ data }: ListProps) {
 	const ListItemClick = (item: {
 		name: string;
 		address: string;
-		explain: string;
-		images: string[];
+		detail: string;
+		shop_images: any[];
 		category: string;
 		phone: string;
-		subscribeCost: string;
+		payment: string;
 	}) => {
 		setListClick(true);
 		setShopDetail({
 			name: item.name,
 			address: item.address,
-			explain: item.explain,
-			images: item.images,
+			detail: item.detail,
+			images: item.shop_images.map((item) => item.image_url),
 			category: item.category,
 			phone: item.phone,
-			subscribeCost: item.subscribeCost,
+			subscribeCost: item.payment,
 		});
 		setShopMarker({
 			address: item.address,
@@ -95,14 +104,14 @@ export function List({ data }: ListProps) {
 
 	return (
 		<>
-			{data !== ''
+			{searchName !== ''
 				? shops
-						.filter((item) => item.name.includes(data))
+						.filter((item) => item.name.includes(searchName))
 						.map((item) => (
-							<ListItem key={data} onClick={() => ListItemClick(item)}>
+							<ListItem key={item.name} onClick={() => ListItemClick(item)}>
 								<ShopName>{item.name}</ShopName>
 								<ShopAddress>📮 {item.address}</ShopAddress>
-								<ShopDetail>{item.explain}</ShopDetail>
+								<ShopDetail>{item.detail}</ShopDetail>
 							</ListItem>
 						))
 				: shops.map((item, i) => {
@@ -110,7 +119,7 @@ export function List({ data }: ListProps) {
 							<ListItem key={i} onClick={() => ListItemClick(item)}>
 								<ShopName>{item.name}</ShopName>
 								<ShopAddress>📮 {item.address}</ShopAddress>
-								<ShopDetail>{item.explain}</ShopDetail>
+								<ShopDetail>{item.detail}</ShopDetail>
 							</ListItem>
 						);
 				  })}

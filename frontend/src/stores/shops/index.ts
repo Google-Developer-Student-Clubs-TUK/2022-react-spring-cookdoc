@@ -3,11 +3,11 @@ import { atom } from 'recoil';
 interface IShops {
 	name: string;
 	address: string;
-	explain: string;
-	images: string[];
+	detail: string;
+	shop_images: string[];
 	category: string;
 	phone: string;
-	subscribeCost: string;
+	payment: string;
 }
 
 export const shopsState = atom<IShops[]>({

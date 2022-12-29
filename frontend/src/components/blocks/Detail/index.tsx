@@ -275,7 +275,7 @@ export function Detail() {
 
 			<DetailContainer>
 				<Title>💬 음식점 소개</Title>
-				<ShopExplain>{detail.explain}</ShopExplain>
+				<ShopExplain>{detail.detail}</ShopExplain>
 			</DetailContainer>
 
 			<Horizon />

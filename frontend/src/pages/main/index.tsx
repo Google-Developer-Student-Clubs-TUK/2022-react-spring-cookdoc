@@ -213,7 +213,7 @@ export function Main() {
 						</ShopListHeaderContainer>
 
 						<ShopListBodyContainer>
-							<List data={value} />
+							<List searchName={value} />
 						</ShopListBodyContainer>
 					</ShopListContainer>
 

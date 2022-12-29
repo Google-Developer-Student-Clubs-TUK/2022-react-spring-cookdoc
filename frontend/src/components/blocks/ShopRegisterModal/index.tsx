@@ -120,38 +120,40 @@ export function ShopRegisterModal() {
 	const registShopHandler = () => {
 		const form = new FormData();
 
+		form.append('user_id', '1');
 		form.append('name', shopName);
 		form.append('address', `${address} ${addressDetail}`);
-		form.append('explain', info);
-		// for (const file of imageFileList) {
-		// 	form.append('images', file);
-		// }
-		for (const file of imageURLList) {
+		form.append('detail', info);
+		for (const file of imageFileList) {
 			form.append('images', file);
 		}
+		// for (const file of imageURLList) {
+		// 	form.append('images', file);
+		// }
 		form.append('category', category);
 		form.append('phone', phoneNumber);
-		form.append('subscribeCost', subscribeCost);
+		form.append('payment', subscribeCost);
 
 		const formValidated = validateForm();
 
 		if (formValidated) {
 			axios
 				.post(`${apiUrl}/shops`, form)
-				.then((res) =>
-					setShops((state) => [
-						...state,
-						{
-							name: res.data.name,
-							address: res.data.address,
-							explain: res.data.explain,
-							images: [res.data.images],
-							category: res.data.category,
-							phone: res.data.phone,
-							subscribeCost: res.data.subscribeCost,
-						},
-					]),
-				)
+				// .then((res) =>
+				// 	setShops((state) => [
+				// 		...state,
+				// 		{
+				// 			name: res.data.name,
+				// 			address: res.data.address,
+				// 			explain: res.data.explain,
+				// 			images: [res.data.images],
+				// 			category: res.data.category,
+				// 			phone: res.data.phone,
+				// 			subscribeCost: res.data.subscribeCost,
+				// 		},
+				// 	]),
+				// )
+				.then((res) => console.log(res))
 				.catch((err) => console.log(err));
 			setModalButtonClicked(false);
 		}
