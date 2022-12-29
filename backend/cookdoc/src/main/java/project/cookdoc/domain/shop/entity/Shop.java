@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+
 @Getter
 @Setter
 @Builder
@@ -47,10 +48,15 @@ public class Shop extends BaseEntity {
     @NonNull
     private String category;
 
+    @Column
+    @NonNull
+    private int payment;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "shop_id")
     private List<ShopImage> shop_images;
 
     @OneToMany(mappedBy = "shop")
     Set<Subscriber> subscribers;
+
 }
